@@ -1,9 +1,8 @@
+# Just test
 name: Convert Clash YAML to sing-box JSON
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
 
 jobs:
   convert:
@@ -33,15 +32,14 @@ jobs:
           python <<'EOF'
           import yaml, json, sys, os
 
-          # Clash -> sing-box 映射（包含 IPv6 变体）
           mapping = {
               "DOMAIN": "domain",
               "DOMAIN-SUFFIX": "domain_suffix",
               "DOMAIN-KEYWORD": "domain_keyword",
               "DOMAIN-REGEX": "domain_regex",
               "IP-CIDR": "ip_cidr",
-              "IP-CIDR6": "ip_cidr",     # <- 把 IPv6 也放到 ip_cidr 字段
-              "IP6-CIDR": "ip_cidr",    # 额外兼容写法
+              "IP-CIDR6": "ip_cidr",
+              "IP6-CIDR": "ip_cidr",
               "SRC-IP-CIDR": "source_ip_cidr",
               "PROCESS-NAME": "package_name",
               "PROCESS-PATH": "process_path",
@@ -52,12 +50,10 @@ jobs:
               "SRC-PORT-RANGE": "source_port_range"
           }
 
-          # 读取 Clash YAML（容错处理）
           with open("rules.yaml", "r", encoding="utf-8") as f:
               data = yaml.safe_load(f) or {}
 
           rule = {}
-
           for item in data.get("payload", []):
               if not item or not isinstance(item, str):
                   continue
@@ -67,15 +63,12 @@ jobs:
               type_, value = parts[0].strip().upper(), parts[1].strip()
               if type_ in mapping:
                   field = mapping[type_]
-                  # DOMAIN-SUFFIX 前面补上点
                   if field == "domain_suffix" and not value.startswith("."):
                       value = "." + value
                   rule.setdefault(field, []).append(value)
 
-          # 仅保留非空字段
           clean_rule = {k: v for k, v in rule.items() if v}
 
-          # 如果没有有效规则就不写文件（避免空提交）
           if not clean_rule:
               print("No rules generated — skipping file write.")
               sys.exit(0)
