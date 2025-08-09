@@ -1,0 +1,38 @@
+name: Compile sing-box JSON to SRS
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"  # 每天零点自动运行
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 允许写仓库
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download sing-box CLI
+        run: |
+          curl -Lo sing-box https://github.com/SagerNet/sing-box/releases/latest/download/sing-box-linux-amd64
+          chmod +x sing-box
+          sudo mv sing-box /usr/local/bin/
+
+      - name: Compile all JSON rules to SRS
+        run: |
+          cd rules
+          for f in *.json; do
+            [ -f "$f" ] || continue
+            echo "Compiling $f..."
+            sing-box rule-set compile --output "${f%.json}.srs" "$f"
+          done
+
+      - name: Commit and push compiled SRS files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rules/*.srs
+          git diff --cached --quiet || (git commit -m "Update compiled sing-box SRS files" && git push)
