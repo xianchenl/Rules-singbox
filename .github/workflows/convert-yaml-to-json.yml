@@ -27,19 +27,7 @@ jobs:
           echo "Searching yaml files (excluding No_Resolve):"
           find rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | tee /dev/stderr | while read -r yaml_file; do
             json_file="rules/$(basename "${yaml_file%.*}.json")"
-            python3 - <<EOF
-import yaml
-import json
-
-yaml_path = "${yaml_file}"
-json_path = "${json_file}"
-
-with open(yaml_path, "r", encoding="utf-8") as f:
-    data = yaml.safe_load(f)
-
-with open(json_path, "w", encoding="utf-8") as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
-EOF
+            python3 -c "import yaml,json;f=open('$yaml_file','r',encoding='utf-8');data=yaml.safe_load(f);f.close();f=open('$json_file','w',encoding='utf-8');json.dump(data,f,ensure_ascii=False,indent=2);f.close()"
           done
 
       - name: Commit and push JSON files
