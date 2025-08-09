@@ -1,66 +1,67 @@
-# 工作流名称
+# Workflow Name
 name: Convert Clash Rules to Sing-box Format
 
-# 工作流触发条件
+# Workflow Triggers
 on:
-  # 允许手动在 GitHub Actions 页面触发
+  # Allows manual triggering from the GitHub Actions page
   workflow_dispatch:
 
-  # 定时任务：每天 00:00 (UTC 时间) 自动运行
+  # Scheduled task: Runs automatically every day at 00:00 UTC
   schedule:
     - cron: '0 0 * * *'
 
-# 为工作流中的所有任务设置默认权限
-# 这里需要 'contents: write' 权限，以便能将生成的文件推送回仓库
+# Default permissions for all jobs in the workflow.
+# 'contents: write' is required to push the generated files back to the repository.
 permissions:
   contents: write
 
-# 定义工作流中的任务
+# Defines the jobs in the workflow
 jobs:
   build-and-commit:
-    # 任务运行的虚拟环境
+    # The virtual environment the job will run on
     runs-on: ubuntu-latest
 
-    # 任务包含的步骤
+    # The steps included in the job
     steps:
-      # 步骤 1: 检出你的仓库代码
-      # 这是必须的，因为后续需要将生成的文件提交到这个仓库
+      # Step 1: Check out your repository's code
+      # This is necessary to commit the generated files back to your repo.
       - name: 1. Checkout Repository
         uses: actions/checkout@v4
 
-      # 步骤 2: 设置 Python 环境并启用缓存
-      # 使用 actions/setup-python 可以确保环境一致性
-      # 'cache: pip' 会自动缓存依赖项，加速后续构建
+      # Step 2: Set up the Python environment and enable caching
+      # Using actions/setup-python ensures a consistent environment.
+      # 'cache: pip' automatically caches dependencies to speed up future runs.
       - name: 2. Set up Python and Cache Dependencies
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
           cache: 'pip'
 
-      # 步骤 3: 安装 Python 依赖库
-      # 只需要 PyYAML 这个库来处理 YAML 文件
+      # Step 3: Install Python dependencies
+      # We need the PyYAML library to process YAML files.
       - name: 3. Install Python Dependencies
         run: pip install pyyaml
 
-      # 步骤 4: 克隆外部的规则源仓库
-      # --depth=1 表示只克隆最新的版本，节省时间和空间
+      # Step 4: Clone the external rule source repository
+      # --depth=1 clones only the latest version to save time and space.
       - name: 4. Clone External Rule Repository
         run: git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
 
-      # 步骤 5: 执行转换脚本
-      # 这是核心步骤，遍历、转换并生成新的 JSON 文件
+      # Step 5: Execute the conversion script
+      # This is the core step that iterates, converts, and generates the new JSON files.
+      # THE FIX IS IN THIS STEP.
       - name: 5. Convert YAML to Sing-box JSON
         shell: bash
         run: |
-          # 创建用于存放输出文件的目录
+          # Create the output directory if it doesn't exist
           mkdir -p rules
           
-          # 查找所有规则文件，排除 No_Resolve，然后逐一处理
+          # Find all rule files, exclude 'No_Resolve', and process them one by one
           find temp_repo/rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | while read -r yaml_file; do
             base_name=$(basename "${yaml_file%.*}.json")
             
-            # 执行内联 Python 脚本进行转换
-            # 这里的 Python 代码块有正确的缩进，是 YAML 语法的一部分
+            # Execute the inline Python script for conversion.
+            # NOTE: The Python code block below now has the correct indentation to be valid YAML.
             python3 -c "
 import yaml
 import json
@@ -115,19 +116,19 @@ print(f'Successfully converted {yaml_file} to {json_file}')
 " "$yaml_file" "rules/$base_name"
           done
 
-      # 步骤 6: 提交并推送变更
-      # 只有在文件内容发生变化时才会执行 commit 和 push
+      # Step 6: Commit and push the changes
+      # This will only commit and push if the file contents have actually changed.
       - name: 6. Commit and Push Changes
         run: |
-          # 配置 git 用户信息
+          # Configure git user identity
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 将 rules 目录下的所有变动添加到暂存区
+          # Stage all changes in the rules/ directory
           git add rules/
           
-          # 检查是否有文件变动。--quiet 会在有变动时返回1，没有时返回0
-          # 'if ! git ...' 的意思是“如果 git diff 不是没有变动”
+          # Check if there are any staged changes.
+          # The 'if ! git ...' means "if the diff is NOT empty"
           if ! git diff --cached --quiet; then
             echo "Changes detected. Committing and pushing..."
             git commit -m "feat(rules): Automatic update of sing-box rule files" -m "Source: blackmatrix7/ios_rule_script"
