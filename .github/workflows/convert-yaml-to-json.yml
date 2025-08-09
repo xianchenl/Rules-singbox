@@ -1,4 +1,4 @@
-name: Clone and Convert Clash YAML to sing-box JSON
+name: Convert Clash YAML to sing-box JSON 
 
 on:
   workflow_dispatch:
@@ -19,66 +19,15 @@ jobs:
           pip3 install pyyaml
 
       - name: 克隆 ios_rule_script 仓库
-        run: |
-          git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
+        run: git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
 
       - name: 转换所有 YAML 到 sing-box JSON (排除 No_Resolve)
+        shell: bash
         run: |
           mkdir -p rules
           find temp_repo/rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | while read -r yaml_file; do
             base_name=$(basename "${yaml_file%.*}.json")
-
-            python3 <<EOF
-import yaml, json, sys, os
-
-mapping = {
-    "DOMAIN": "domain",
-    "DOMAIN-SUFFIX": "domain_suffix",
-    "DOMAIN-KEYWORD": "domain_keyword",
-    "DOMAIN-REGEX": "domain_regex",
-    "IP-CIDR": "ip_cidr",
-    "IP-CIDR6": "ip_cidr",
-    "IP6-CIDR": "ip_cidr",
-    "SRC-IP-CIDR": "source_ip_cidr",
-    "PROCESS-NAME": "package_name",
-    "PROCESS-PATH": "process_path",
-    "PROCESS-PATH-REGEX": "process_path_regex",
-    "PORT": "port",
-    "PORT-RANGE": "port_range",
-    "SRC-PORT": "source_port",
-    "SRC-PORT-RANGE": "source_port_range"
-}
-
-with open("$yaml_file", "r", encoding="utf-8") as f:
-    data = yaml.safe_load(f) or {}
-
-rule = {}
-
-for item in data.get("payload", []):
-    if not item or not isinstance(item, str):
-        continue
-    parts = item.split(",", 1)
-    if len(parts) != 2:
-        continue
-    type_, value = parts[0].strip().upper(), parts[1].strip()
-    if type_ in mapping:
-        field = mapping[type_]
-        if field == "domain_suffix" and not value.startswith("."):
-            value = "." + value
-        rule.setdefault(field, []).append(value)
-
-clean_rule = {k: v for k, v in rule.items() if v}
-
-if not clean_rule:
-    print("No rules generated for $yaml_file — skipping")
-    sys.exit(0)
-
-out = {"version": 3, "rules": [clean_rule]}
-os.makedirs("rules", exist_ok=True)
-with open(os.path.join("rules", "$base_name"), "w", encoding="utf-8") as f:
-    json.dump(out, f, indent=2, ensure_ascii=False)
-print(f"Wrote rules/$base_name")
-EOF
+            python3 -c "import yaml,json,sys,os;f=open('$yaml_file','r',encoding='utf-8');d=yaml.safe_load(f);f.close();rule={};mapping={'DOMAIN':'domain','DOMAIN-SUFFIX':'domain_suffix','DOMAIN-KEYWORD':'domain_keyword','DOMAIN-REGEX':'domain_regex','IP-CIDR':'ip_cidr','IP-CIDR6':'ip_cidr','IP6-CIDR':'ip_cidr','SRC-IP-CIDR':'source_ip_cidr','PROCESS-NAME':'package_name','PROCESS-PATH':'process_path','PROCESS-PATH-REGEX':'process_path_regex','PORT':'port','PORT-RANGE':'port_range','SRC-PORT':'source_port','SRC-PORT-RANGE':'source_port_range'};[rule.setdefault(mapping[item.split(\",\",1)[0].strip().upper()],[]).append(item.split(\",\",1)[1].strip()) for item in d.get('payload',[]) if item and isinstance(item,str) and item.split(\",\",1)[0].strip().upper() in mapping];rule['domain_suffix']=[v if v.startswith('.') else '.'+v for v in rule.get('domain_suffix',[])];clean_rule={k:v for k,v in rule.items() if v};sys.exit(0) if not clean_rule else (os.makedirs('rules',exist_ok=True),open('rules/$base_name','w',encoding='utf-8').write(json.dumps({'version':3,'rules':[clean_rule]},indent=2,ensure_ascii=False)))"
           done
 
       - name: 提交并推送改动
@@ -87,7 +36,7 @@ EOF
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add rules/*.json
           if ! git diff --cached --quiet; then
-            git commit -m "Convert Clash YAML to sing-box JSON (exclude No_Resolve)"
+            git commit -m "Convert Clash YAML to sing-box JSON (exclude No_Resolve) single-line python"
             git push
           else
             echo "No changes to commit"
