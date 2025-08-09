@@ -1,12 +1,12 @@
-name: Convert YAML to JSON (excluding No_Resolve)
+name: Clone and Convert Clash YAML to JSON (exclude No_Resolve)
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *'  # UTC 时间每天凌晨0点执行，即北京时间早上8点
 
 jobs:
-  convert_yaml_to_json:
+  clone_and_convert:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 1
 
       - name: Install Python dependencies
         run: |
@@ -27,8 +30,9 @@ jobs:
           mkdir -p rules
           echo "Searching yaml files (excluding No_Resolve):"
           find rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | tee /dev/stderr | while read -r yaml_file; do
-            json_file="rules/$(basename "${yaml_file%.*}.json")"
-            python3 -c "import yaml, json; f = open('$yaml_file', 'r', encoding='utf-8'); data = yaml.safe_load(f); f.close(); f = open('$json_file', 'w', encoding='utf-8'); json.dump(data, f, ensure_ascii=False, indent=2); f.close()"
+            base_name=$(basename "${yaml_file%.*}.json")
+            json_file="rules/$base_name"
+            python3 -c "import yaml,json; f=open('$yaml_file','r',encoding='utf-8'); d=yaml.safe_load(f); f.close(); f=open('$json_file','w',encoding='utf-8'); json.dump(d,f,ensure_ascii=False,indent=2); f.close()"
           done
 
       - name: Commit and push JSON files
@@ -36,4 +40,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add rules/*.json
-          git diff --cached --quiet || (git commit -m "Convert YAML to JSON excluding No_Resolve" && git push)
+          git diff --cached --quiet || (git commit -m "Convert Clash YAML to JSON excluding No_Resolve" && git push)
