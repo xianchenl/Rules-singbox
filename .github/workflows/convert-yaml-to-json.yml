@@ -1,32 +1,66 @@
-name: Convert Clash YAML to sing-box JSON
+# 工作流名称
+name: Convert Clash Rules to Sing-box Format
 
+# 工作流触发条件
 on:
+  # 允许手动在 GitHub Actions 页面触发
   workflow_dispatch:
+
+  # 定时任务：每天 00:00 (UTC 时间) 自动运行
   schedule:
     - cron: '0 0 * * *'
 
+# 为工作流中的所有任务设置默认权限
+# 这里需要 'contents: write' 权限，以便能将生成的文件推送回仓库
+permissions:
+  contents: write
+
+# 定义工作流中的任务
 jobs:
-  convert:
+  build-and-commit:
+    # 任务运行的虚拟环境
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
+    # 任务包含的步骤
     steps:
-      - name: 安装 Python 及依赖
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip
-          pip3 install pyyaml
+      # 步骤 1: 检出你的仓库代码
+      # 这是必须的，因为后续需要将生成的文件提交到这个仓库
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: 克隆 ios_rule_script 仓库
+      # 步骤 2: 设置 Python 环境并启用缓存
+      # 使用 actions/setup-python 可以确保环境一致性
+      # 'cache: pip' 会自动缓存依赖项，加速后续构建
+      - name: 2. Set up Python and Cache Dependencies
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+
+      # 步骤 3: 安装 Python 依赖库
+      # 只需要 PyYAML 这个库来处理 YAML 文件
+      - name: 3. Install Python Dependencies
+        run: pip install pyyaml
+
+      # 步骤 4: 克隆外部的规则源仓库
+      # --depth=1 表示只克隆最新的版本，节省时间和空间
+      - name: 4. Clone External Rule Repository
         run: git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
 
-      - name: 转换所有 YAML 到 sing-box JSON (排除 No_Resolve)
+      # 步骤 5: 执行转换脚本
+      # 这是核心步骤，遍历、转换并生成新的 JSON 文件
+      - name: 5. Convert YAML to Sing-box JSON
         shell: bash
         run: |
+          # 创建用于存放输出文件的目录
           mkdir -p rules
+          
+          # 查找所有规则文件，排除 No_Resolve，然后逐一处理
           find temp_repo/rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | while read -r yaml_file; do
             base_name=$(basename "${yaml_file%.*}.json")
+            
+            # 执行内联 Python 脚本进行转换
+            # 这里的 Python 代码块有正确的缩进，是 YAML 语法的一部分
             python3 -c "
 import yaml
 import json
@@ -36,24 +70,19 @@ import os
 yaml_file = sys.argv[1]
 json_file = sys.argv[2]
 
-with open(yaml_file, 'r', encoding='utf-8') as f:
-    data = yaml.safe_load(f) or {}
+try:
+    with open(yaml_file, 'r', encoding='utf-8') as f:
+        data = yaml.safe_load(f) or {}
+except Exception as e:
+    print(f'Could not process {yaml_file}: {e}', file=sys.stderr)
+    sys.exit(0)
 
 mapping = {
-    'DOMAIN': 'domain',
-    'DOMAIN-SUFFIX': 'domain_suffix',
-    'DOMAIN-KEYWORD': 'domain_keyword',
-    'DOMAIN-REGEX': 'domain_regex',
-    'IP-CIDR': 'ip_cidr',
-    'IP-CIDR6': 'ip_cidr',
-    'IP6-CIDR': 'ip_cidr',
-    'SRC-IP-CIDR': 'source_ip_cidr',
-    'PROCESS-NAME': 'package_name',
-    'PROCESS-PATH': 'process_path',
-    'PROCESS-PATH-REGEX': 'process_path_regex',
-    'PORT': 'port',
-    'PORT-RANGE': 'port_range',
-    'SRC-PORT': 'source_port',
+    'DOMAIN': 'domain', 'DOMAIN-SUFFIX': 'domain_suffix', 'DOMAIN-KEYWORD': 'domain_keyword',
+    'DOMAIN-REGEX': 'domain_regex', 'IP-CIDR': 'ip_cidr', 'IP-CIDR6': 'ip_cidr',
+    'IP6-CIDR': 'ip_cidr', 'SRC-IP-CIDR': 'source_ip_cidr', 'PROCESS-NAME': 'package_name',
+    'PROCESS-PATH': 'process_path', 'PROCESS-PATH-REGEX': 'process_path_regex',
+    'PORT': 'port', 'PORT-RANGE': 'port_range', 'SRC-PORT': 'source_port',
     'SRC-PORT-RANGE': 'source_port_range'
 }
 
@@ -82,18 +111,27 @@ os.makedirs(os.path.dirname(json_file), exist_ok=True)
 with open(json_file, 'w', encoding='utf-8') as f:
     json.dump({'version': 3, 'rules': [clean_rule]}, f, indent=2, ensure_ascii=False)
 
-print(f'Wrote {json_file}')
+print(f'Successfully converted {yaml_file} to {json_file}')
 " "$yaml_file" "rules/$base_name"
           done
 
-      - name: 提交并推送改动
+      # 步骤 6: 提交并推送变更
+      # 只有在文件内容发生变化时才会执行 commit 和 push
+      - name: 6. Commit and Push Changes
         run: |
+          # 配置 git 用户信息
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add rules/*.json
+          
+          # 将 rules 目录下的所有变动添加到暂存区
+          git add rules/
+          
+          # 检查是否有文件变动。--quiet 会在有变动时返回1，没有时返回0
+          # 'if ! git ...' 的意思是“如果 git diff 不是没有变动”
           if ! git diff --cached --quiet; then
-            git commit -m "Convert Clash YAML to sing-box JSON (exclude No_Resolve)"
+            echo "Changes detected. Committing and pushing..."
+            git commit -m "feat(rules): Automatic update of sing-box rule files" -m "Source: blackmatrix7/ios_rule_script"
             git push
           else
-            echo "No changes to commit"
+            echo "No changes to commit."
           fi
