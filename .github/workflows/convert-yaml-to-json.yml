@@ -3,7 +3,7 @@ name: Convert Clash YAML to sing-box JSON
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # 每天凌晨0点执行
+    - cron: '0 0 * * *'
 
 jobs:
   convert:
