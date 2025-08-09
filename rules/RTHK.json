@@ -16,8 +16,8 @@
         "rthktv32-live.akamaized.net"
       ],
       "domain_suffix": [
-        ".rthk.hk",
-        ".rthk.org.hk"
+        "rthk.hk",
+        "rthk.org.hk"
       ]
     }
   ]

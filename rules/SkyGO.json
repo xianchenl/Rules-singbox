@@ -8,15 +8,15 @@
         "sky.com.ssl.d1.sc.omtrdc.net"
       ],
       "domain_suffix": [
-        ".2cnt.net",
-        ".epgsky.com",
-        ".eu-1.xcal.tv",
-        ".sky.com",
-        ".skyanywhere.com",
-        ".skycdp.com",
-        ".skygo.co.nz",
-        ".skysports.com",
-        ".xmidt-eu.comcast.net"
+        "2cnt.net",
+        "epgsky.com",
+        "eu-1.xcal.tv",
+        "sky.com",
+        "skyanywhere.com",
+        "skycdp.com",
+        "skygo.co.nz",
+        "skysports.com",
+        "xmidt-eu.comcast.net"
       ],
       "domain_keyword": [
         "bskyb",

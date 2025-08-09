@@ -3,9 +3,9 @@
   "rules": [
     {
       "domain_suffix": [
-        ".cdninstagram.com",
-        ".instagr.am",
-        ".instagram.com"
+        "cdninstagram.com",
+        "instagr.am",
+        "instagram.com"
       ],
       "domain_keyword": [
         "instagram"

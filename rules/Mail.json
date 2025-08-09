@@ -14,9 +14,9 @@
         "smtp.office365.com"
       ],
       "domain_suffix": [
-        ".imap.yandex.com",
-        ".m.hotmail.com",
-        ".smtp.yandex.com"
+        "imap.yandex.com",
+        "m.hotmail.com",
+        "smtp.yandex.com"
       ]
     }
   ]

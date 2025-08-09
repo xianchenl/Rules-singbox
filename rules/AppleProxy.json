@@ -32,18 +32,18 @@
         "uts-api.itunes.apple.com"
       ],
       "domain_suffix": [
-        ".apple-dns.net",
-        ".apple.news",
-        ".apps.apple.com",
-        ".appsto.re",
-        ".audio-ssl.itunes.apple.com",
-        ".blobstore.apple.com",
-        ".cdn-apple.com",
-        ".digicert.com",
-        ".hls-amt.itunes.apple.com",
-        ".hls.itunes.apple.com",
-        ".ocsp.apple.com",
-        ".tv.apple.com"
+        "apple-dns.net",
+        "apple.news",
+        "apps.apple.com",
+        "appsto.re",
+        "audio-ssl.itunes.apple.com",
+        "blobstore.apple.com",
+        "cdn-apple.com",
+        "digicert.com",
+        "hls-amt.itunes.apple.com",
+        "hls.itunes.apple.com",
+        "ocsp.apple.com",
+        "tv.apple.com"
       ],
       "package_name": [
         "LookupViewService"

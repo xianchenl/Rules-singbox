@@ -10,9 +10,9 @@
         "cdn.blz-contentstack.com"
       ],
       "domain_suffix": [
-        ".battle.net",
-        ".battlenet.com.cn",
-        ".blizzard.com"
+        "battle.net",
+        "battlenet.com.cn",
+        "blizzard.com"
       ]
     }
   ]

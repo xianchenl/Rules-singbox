@@ -19,11 +19,11 @@
         "yoo.gtimg.com"
       ],
       "domain_suffix": [
-        ".pgdt.gtimg.cn",
-        ".qqvideo.gtimg.com",
-        ".v.qq.com",
-        ".v.smtcdns.com",
-        ".video.qq.com"
+        "pgdt.gtimg.cn",
+        "qqvideo.gtimg.com",
+        "v.qq.com",
+        "v.smtcdns.com",
+        "video.qq.com"
       ],
       "ip_cidr": [
         "58.49.111.117/32",

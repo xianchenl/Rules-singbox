@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".anandtech.com"
+        "anandtech.com"
       ]
     }
   ]

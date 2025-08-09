@@ -41,9 +41,9 @@
         "xvcf2.xboxlive.com"
       ],
       "domain_suffix": [
-        ".cdn.ubi.com",
-        ".dyn.riotcdn.net",
-        ".steamcontent.com"
+        "cdn.ubi.com",
+        "dyn.riotcdn.net",
+        "steamcontent.com"
       ]
     }
   ]

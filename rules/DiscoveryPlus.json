@@ -8,17 +8,17 @@
         "dplus-northamerica.media-edge.prod-vod.h264.io"
       ],
       "domain_suffix": [
-        ".disco-api.com",
-        ".discovery.com",
-        ".discoveryplus.co.uk",
-        ".discoveryplus.com",
-        ".discoveryplus.in",
-        ".dnitv.com",
-        ".fwmrm.net",
-        ".getblueshift.com",
-        ".litix.io",
-        ".mobile-collector.newrelic.com",
-        ".uplynk.com"
+        "disco-api.com",
+        "discovery.com",
+        "discoveryplus.co.uk",
+        "discoveryplus.com",
+        "discoveryplus.in",
+        "dnitv.com",
+        "fwmrm.net",
+        "getblueshift.com",
+        "litix.io",
+        "mobile-collector.newrelic.com",
+        "uplynk.com"
       ],
       "domain_keyword": [
         "discovery.uplynk.com"

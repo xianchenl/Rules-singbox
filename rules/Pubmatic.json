@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".ads.pubmatic.com"
+        "ads.pubmatic.com"
       ]
     }
   ]

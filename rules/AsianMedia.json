@@ -24,10 +24,10 @@
         "www.bilibili.com"
       ],
       "domain_suffix": [
-        ".api.mgtv.com",
-        ".iq.com",
-        ".wetv.vip",
-        ".wetvinfo.com"
+        "api.mgtv.com",
+        "iq.com",
+        "wetv.vip",
+        "wetvinfo.com"
       ],
       "domain_keyword": [
         "cn-hk-eq-bcache-"

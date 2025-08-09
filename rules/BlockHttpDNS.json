@@ -23,10 +23,10 @@
         "music.httpdns.c.163.com"
       ],
       "domain_suffix": [
-        ".httpdns.baidu.com",
-        ".httpdns.baidubce.com",
-        ".httpdns.pro",
-        ".httpsdns.baidu.com"
+        "httpdns.baidu.com",
+        "httpdns.baidubce.com",
+        "httpdns.pro",
+        "httpsdns.baidu.com"
       ],
       "ip_cidr": [
         "101.124.19.122/32",

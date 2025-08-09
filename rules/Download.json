@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".qbittorrent.org"
+        "qbittorrent.org"
       ],
       "domain_keyword": [
         "aria2",

@@ -8,13 +8,13 @@
         "makersuite.google.com"
       ],
       "domain_suffix": [
-        ".bard.google.com",
-        ".deepmind.com",
-        ".deepmind.google",
-        ".gemini.google.com",
-        ".generativeai.google",
-        ".proactivebackend-pa.googleapis.com",
-        ".apis.google.com"
+        "bard.google.com",
+        "deepmind.com",
+        "deepmind.google",
+        "gemini.google.com",
+        "generativeai.google",
+        "proactivebackend-pa.googleapis.com",
+        "apis.google.com"
       ],
       "domain_keyword": [
         "colab",

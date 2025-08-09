@@ -3,8 +3,8 @@
   "rules": [
     {
       "domain_suffix": [
-        ".zalo.me",
-        ".zaloapp.com"
+        "zalo.me",
+        "zaloapp.com"
       ]
     }
   ]

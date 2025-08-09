@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".addtoany.com"
+        "addtoany.com"
       ]
     }
   ]

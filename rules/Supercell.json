@@ -3,8 +3,8 @@
   "rules": [
     {
       "domain_suffix": [
-        ".brawlstars.com",
-        ".brawlstarsgame.com"
+        "brawlstars.com",
+        "brawlstarsgame.com"
       ],
       "ip_cidr": [
         "13.210.25.233/32",

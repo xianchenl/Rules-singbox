@@ -3,8 +3,8 @@
   "rules": [
     {
       "domain_suffix": [
-        ".flipboard.com",
-        ".flipchina.cn"
+        "flipboard.com",
+        "flipchina.cn"
       ]
     }
   ]

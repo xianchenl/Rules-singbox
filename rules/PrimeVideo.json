@@ -14,12 +14,12 @@
         "www.amazon.com"
       ],
       "domain_suffix": [
-        ".aiv-cdn.net",
-        ".aiv-delivery.net",
-        ".amazonvideo.com",
-        ".media-amazon.com",
-        ".primevideo.com",
-        ".pv-cdn.net"
+        "aiv-cdn.net",
+        "aiv-delivery.net",
+        "amazonvideo.com",
+        "media-amazon.com",
+        "primevideo.com",
+        "pv-cdn.net"
       ],
       "domain_keyword": [
         "avoddashs"

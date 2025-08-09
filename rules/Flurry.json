@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".data.flurry.com"
+        "data.flurry.com"
       ]
     }
   ]

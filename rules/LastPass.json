@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".lastpass.com"
+        "lastpass.com"
       ],
       "package_name": [
         "LastPass"

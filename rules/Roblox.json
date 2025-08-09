@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".rbxcdn.com"
+        "rbxcdn.com"
       ],
       "domain_keyword": [
         "roblox"

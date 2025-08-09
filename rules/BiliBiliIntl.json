@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".bilibili.tv"
+        "bilibili.tv"
       ],
       "package_name": [
         "com.bstar.intl"

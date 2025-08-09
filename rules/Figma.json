@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".figma.com"
+        "figma.com"
       ]
     }
   ]

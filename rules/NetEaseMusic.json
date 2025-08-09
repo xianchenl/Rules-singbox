@@ -6,15 +6,15 @@
         "netease.ugcvideoss.ourdvs.com"
       ],
       "domain_suffix": [
-        ".163yun.com",
-        ".api.iplay.163.com",
-        ".hz.netease.com",
-        ".mam.netease.com",
-        ".music.126.com",
-        ".music.126.net",
-        ".music.163.com",
-        ".music.163.com.163jiasu.com",
-        ".yun-app.net"
+        "163yun.com",
+        "api.iplay.163.com",
+        "hz.netease.com",
+        "mam.netease.com",
+        "music.126.com",
+        "music.126.net",
+        "music.163.com",
+        "music.163.com.163jiasu.com",
+        "yun-app.net"
       ],
       "ip_cidr": [
         "101.71.154.241/32",

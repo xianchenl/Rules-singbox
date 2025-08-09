@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".3dmgame.com"
+        "3dmgame.com"
       ]
     }
   ]

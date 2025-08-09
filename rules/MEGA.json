@@ -3,9 +3,9 @@
   "rules": [
     {
       "domain_suffix": [
-        ".mega.co.nz",
-        ".mega.io",
-        ".mega.nz"
+        "mega.co.nz",
+        "mega.io",
+        "mega.nz"
       ],
       "ip_cidr": [
         "185.206.24.0/22",

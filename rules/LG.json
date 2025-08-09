@@ -3,10 +3,10 @@
   "rules": [
     {
       "domain_suffix": [
-        ".dacom.co.kr",
-        ".kidc.net",
-        ".lg.com",
-        ".uplus.co.kr"
+        "dacom.co.kr",
+        "kidc.net",
+        "lg.com",
+        "uplus.co.kr"
       ],
       "ip_cidr": [
         "103.226.96.0/22",

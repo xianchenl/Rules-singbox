@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".freecodecamp.org"
+        "freecodecamp.org"
       ]
     }
   ]

@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".teamviewer.com"
+        "teamviewer.com"
       ],
       "ip_cidr": [
         "139.220.243.27/32",

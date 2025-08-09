@@ -3,7 +3,7 @@
   "rules": [
     {
       "domain_suffix": [
-        ".antutu.com"
+        "antutu.com"
       ]
     }
   ]
