@@ -28,30 +28,38 @@ jobs:
           find temp_repo/rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | while read -r yaml_file; do
             base_name=$(basename "${yaml_file%.*}.json")
             python3 -c "
-import yaml,json,sys,os
+import yaml
+import json
+import sys
+import os
+
 yaml_file = sys.argv[1]
 json_file = sys.argv[2]
-with open(yaml_file,'r',encoding='utf-8') as f:
-    d = yaml.safe_load(f) or {}
-rule = {}
+
+with open(yaml_file, 'r', encoding='utf-8') as f:
+    data = yaml.safe_load(f) or {}
+
 mapping = {
-    'DOMAIN':'domain',
-    'DOMAIN-SUFFIX':'domain_suffix',
-    'DOMAIN-KEYWORD':'domain_keyword',
-    'DOMAIN-REGEX':'domain_regex',
-    'IP-CIDR':'ip_cidr',
-    'IP-CIDR6':'ip_cidr',
-    'IP6-CIDR':'ip_cidr',
-    'SRC-IP-CIDR':'source_ip_cidr',
-    'PROCESS-NAME':'package_name',
-    'PROCESS-PATH':'process_path',
-    'PROCESS-PATH-REGEX':'process_path_regex',
-    'PORT':'port',
-    'PORT-RANGE':'port_range',
-    'SRC-PORT':'source_port',
-    'SRC-PORT-RANGE':'source_port_range'
+    'DOMAIN': 'domain',
+    'DOMAIN-SUFFIX': 'domain_suffix',
+    'DOMAIN-KEYWORD': 'domain_keyword',
+    'DOMAIN-REGEX': 'domain_regex',
+    'IP-CIDR': 'ip_cidr',
+    'IP-CIDR6': 'ip_cidr',
+    'IP6-CIDR': 'ip_cidr',
+    'SRC-IP-CIDR': 'source_ip_cidr',
+    'PROCESS-NAME': 'package_name',
+    'PROCESS-PATH': 'process_path',
+    'PROCESS-PATH-REGEX': 'process_path_regex',
+    'PORT': 'port',
+    'PORT-RANGE': 'port_range',
+    'SRC-PORT': 'source_port',
+    'SRC-PORT-RANGE': 'source_port_range'
 }
-for item in d.get('payload', []):
+
+rule = {}
+
+for item in data.get('payload', []):
     if not item or not isinstance(item, str):
         continue
     parts = item.split(',', 1)
@@ -59,16 +67,21 @@ for item in d.get('payload', []):
         continue
     t, v = parts[0].strip().upper(), parts[1].strip()
     if t in mapping:
-        f = mapping[t]
-        if f == 'domain_suffix' and not v.startswith('.'):
+        key = mapping[t]
+        if key == 'domain_suffix' and not v.startswith('.'):
             v = '.' + v
-        rule.setdefault(f, []).append(v)
+        rule.setdefault(key, []).append(v)
+
 clean_rule = {k: v for k, v in rule.items() if v}
+
 if not clean_rule:
     sys.exit(0)
+
 os.makedirs(os.path.dirname(json_file), exist_ok=True)
+
 with open(json_file, 'w', encoding='utf-8') as f:
     json.dump({'version': 3, 'rules': [clean_rule]}, f, indent=2, ensure_ascii=False)
+
 print(f'Wrote {json_file}')
 " "$yaml_file" "rules/$base_name"
           done
