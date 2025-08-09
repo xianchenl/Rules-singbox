@@ -1,0 +1,86 @@
+name: Convert Clash YAML to sing-box JSON
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Download Clash YAML
+        run: |
+          curl -L "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml" -o rules.yaml
+
+      - name: Convert to sing-box JSON
+        run: |
+          mkdir -p rules
+          python <<'EOF'
+          import yaml, json
+
+          # Clash → sing-box 映射表
+          mapping = {
+              "DOMAIN": "domain",
+              "DOMAIN-SUFFIX": "domain_suffix",
+              "DOMAIN-KEYWORD": "domain_keyword",
+              "DOMAIN-REGEX": "domain_regex",
+              "IP-CIDR": "ip_cidr",
+              "SRC-IP-CIDR": "source_ip_cidr",
+              "PROCESS-NAME": "package_name",
+              "PROCESS-PATH": "process_path",
+              "PROCESS-PATH-REGEX": "process_path_regex",
+              "PORT": "port",
+              "PORT-RANGE": "port_range",
+              "SRC-PORT": "source_port",
+              "SRC-PORT-RANGE": "source_port_range"
+          }
+
+          with open("rules.yaml", "r", encoding="utf-8") as f:
+              data = yaml.safe_load(f)
+
+          singbox_rules = {
+              "version": 3,
+              "rules": []
+          }
+
+          rule = {}
+
+          for item in data.get("payload", []):
+              try:
+                  type_, value = item.split(",", 1)
+              except ValueError:
+                  continue
+
+              if type_ in mapping:
+                  field = mapping[type_]
+                  if field == "domain_suffix" and not value.startswith("."):
+                      value = "." + value
+                  rule.setdefault(field, []).append(value)
+
+          # 删除空字段
+          clean_rule = {k: v for k, v in rule.items() if v}
+          singbox_rules["rules"].append(clean_rule)
+
+          with open("rules/globalmedia.json", "w", encoding="utf-8") as f:
+              json.dump(singbox_rules, f, indent=2, ensure_ascii=False)
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rules/globalmedia.json
+          git commit -m "Update sing-box globalmedia rules" || echo "No changes"
+          git push
