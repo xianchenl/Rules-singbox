@@ -1,4 +1,4 @@
-name: Convert Clash YAML to JSON (exclude No_Resolve)
+name: Convert YAML to JSON (excluding No_Resolve)
 
 on:
   workflow_dispatch:
@@ -12,7 +12,8 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Install Python dependencies
         run: |
@@ -27,7 +28,7 @@ jobs:
           echo "Searching yaml files (excluding No_Resolve):"
           find rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | tee /dev/stderr | while read -r yaml_file; do
             json_file="rules/$(basename "${yaml_file%.*}.json")"
-            python3 -c "import yaml,json;f=open('$yaml_file','r',encoding='utf-8');data=yaml.safe_load(f);f.close();f=open('$json_file','w',encoding='utf-8');json.dump(data,f,ensure_ascii=False,indent=2);f.close()"
+            python3 -c "import yaml, json; f = open('$yaml_file', 'r', encoding='utf-8'); data = yaml.safe_load(f); f.close(); f = open('$json_file', 'w', encoding='utf-8'); json.dump(data, f, ensure_ascii=False, indent=2); f.close()"
           done
 
       - name: Commit and push JSON files
@@ -35,4 +36,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add rules/*.json
-          git diff --cached --quiet || (git commit -m "Convert Clash YAML to JSON excluding No_Resolve" && git push)
+          git diff --cached --quiet || (git commit -m "Convert YAML to JSON excluding No_Resolve" && git push)
