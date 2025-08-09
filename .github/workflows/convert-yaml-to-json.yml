@@ -1,9 +1,9 @@
-name: Convert Clash YAML to sing-box JSON (Node.js)
+name: Convert Clash YAML to sing-box JSON
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   convert:
@@ -12,19 +12,21 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
-        run: npm install yaml fs-extra
+        run: npm install fs-extra yaml
 
-      - name: Clone ios_rule_script repo
-        run: git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
+      - name: Download Clash rules repo
+        run: |
+          rm -rf temp_repo
+          git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
 
       - name: Convert YAML files to sing-box JSON
         run: |
@@ -72,15 +74,11 @@ jobs:
 
                 if (mapping[type]) {
                   const key = mapping[type];
-                  if (key === 'domain_suffix' && !value.startsWith('.')) {
-                    value = '.' + value;
-                  }
                   if (!rule[key]) rule[key] = [];
                   rule[key].push(value);
                 }
               }
 
-              // 清理空字段
               for (const key in rule) {
                 if (!rule[key] || rule[key].length === 0) {
                   delete rule[key];
@@ -109,7 +107,6 @@ jobs:
             const rootDir = 'temp_repo/rule/Clash';
             const outDir = 'rules';
 
-            // 递归查找所有 yaml 文件，排除文件名包含 No_Resolve 的
             async function walk(dir) {
               let files = [];
               for (const f of await fs.readdir(dir)) {
@@ -140,14 +137,10 @@ jobs:
           });
           EOF
 
-      - name: Commit and push
+      - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add rules/*.json
-          if ! git diff --cached --quiet; then
-            git commit -m "Update sing-box JSON rules"
-            git push
-          else
-            echo "No changes detected."
-          fi
+          git commit -m "Update sing-box rules" || echo "No changes to commit"
+          git push
