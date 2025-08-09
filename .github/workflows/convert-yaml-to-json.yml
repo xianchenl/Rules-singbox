@@ -3,66 +3,43 @@ name: Convert Clash Rules to Sing-box Format
 
 # Workflow Triggers
 on:
-  # Allows manual triggering from the GitHub Actions page
   workflow_dispatch:
-
-  # Scheduled task: Runs automatically every day at 00:00 UTC
   schedule:
     - cron: '0 0 * * *'
 
-# Default permissions for all jobs in the workflow.
-# 'contents: write' is required to push the generated files back to the repository.
 permissions:
   contents: write
 
-# Defines the jobs in the workflow
 jobs:
   build-and-commit:
-    # The virtual environment the job will run on
     runs-on: ubuntu-latest
 
-    # The steps included in the job
     steps:
-      # Step 1: Check out your repository's code
-      # This is necessary to commit the generated files back to your repo.
       - name: 1. Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up the Python environment and enable caching
-      # Using actions/setup-python ensures a consistent environment.
-      # 'cache: pip' automatically caches dependencies to speed up future runs.
       - name: 2. Set up Python and Cache Dependencies
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
           cache: 'pip'
 
-      # Step 3: Install Python dependencies
-      # We need the PyYAML library to process YAML files.
       - name: 3. Install Python Dependencies
         run: pip install pyyaml
 
-      # Step 4: Clone the external rule source repository
-      # --depth=1 clones only the latest version to save time and space.
       - name: 4. Clone External Rule Repository
         run: git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
 
-      # Step 5: Execute the conversion script
-      # This is the core step that iterates, converts, and generates the new JSON files.
-      # THE FIX IS IN THIS STEP.
       - name: 5. Convert YAML to Sing-box JSON
         shell: bash
         run: |
-          # Create the output directory if it doesn't exist
           mkdir -p rules
           
-          # Find all rule files, exclude 'No_Resolve', and process them one by one
           find temp_repo/rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | while read -r yaml_file; do
             base_name=$(basename "${yaml_file%.*}.json")
             
-            # Execute the inline Python script for conversion.
-            # NOTE: The Python code block below now has the correct indentation to be valid YAML.
-            python3 -c "
+            # Use a heredoc to pass Python code to avoid YAML parsing issues
+            python3 - "$yaml_file" "rules/$base_name" <<EOF
 import yaml
 import json
 import sys
@@ -113,24 +90,15 @@ with open(json_file, 'w', encoding='utf-8') as f:
     json.dump({'version': 3, 'rules': [clean_rule]}, f, indent=2, ensure_ascii=False)
 
 print(f'Successfully converted {yaml_file} to {json_file}')
-" "$yaml_file" "rules/$base_name"
+EOF
           done
 
-      # Step 6: Commit and push the changes
-      # This will only commit and push if the file contents have actually changed.
       - name: 6. Commit and Push Changes
         run: |
-          # Configure git user identity
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Stage all changes in the rules/ directory
           git add rules/
-          
-          # Check if there are any staged changes.
-          # The 'if ! git ...' means "if the diff is NOT empty"
           if ! git diff --cached --quiet; then
-            echo "Changes detected. Committing and pushing..."
             git commit -m "feat(rules): Automatic update of sing-box rule files" -m "Source: blackmatrix7/ios_rule_script"
             git push
           else
