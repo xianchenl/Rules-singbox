@@ -9,7 +9,7 @@ jobs:
   convert:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # ✅ 允许工作流写入仓库
+      contents: write
 
     steps:
       - name: Checkout
@@ -31,15 +31,17 @@ jobs:
         run: |
           mkdir -p rules
           python <<'EOF'
-          import yaml, json
+          import yaml, json, sys, os
 
-          # Clash → sing-box 映射表
+          # Clash -> sing-box 映射（包含 IPv6 变体）
           mapping = {
               "DOMAIN": "domain",
               "DOMAIN-SUFFIX": "domain_suffix",
               "DOMAIN-KEYWORD": "domain_keyword",
               "DOMAIN-REGEX": "domain_regex",
               "IP-CIDR": "ip_cidr",
+              "IP-CIDR6": "ip_cidr",     # <- 把 IPv6 也放到 ip_cidr 字段
+              "IP6-CIDR": "ip_cidr",    # 额外兼容写法
               "SRC-IP-CIDR": "source_ip_cidr",
               "PROCESS-NAME": "package_name",
               "PROCESS-PATH": "process_path",
@@ -50,39 +52,49 @@ jobs:
               "SRC-PORT-RANGE": "source_port_range"
           }
 
+          # 读取 Clash YAML（容错处理）
           with open("rules.yaml", "r", encoding="utf-8") as f:
-              data = yaml.safe_load(f)
-
-          singbox_rules = {
-              "version": 3,
-              "rules": []
-          }
+              data = yaml.safe_load(f) or {}
 
           rule = {}
-          for item in data.get("payload", []):
-              try:
-                  type_, value = item.split(",", 1)
-              except ValueError:
-                  continue
 
+          for item in data.get("payload", []):
+              if not item or not isinstance(item, str):
+                  continue
+              parts = item.split(",", 1)
+              if len(parts) != 2:
+                  continue
+              type_, value = parts[0].strip().upper(), parts[1].strip()
               if type_ in mapping:
                   field = mapping[type_]
+                  # DOMAIN-SUFFIX 前面补上点
                   if field == "domain_suffix" and not value.startswith("."):
                       value = "." + value
                   rule.setdefault(field, []).append(value)
 
-          # 删除空字段
+          # 仅保留非空字段
           clean_rule = {k: v for k, v in rule.items() if v}
-          singbox_rules["rules"].append(clean_rule)
 
+          # 如果没有有效规则就不写文件（避免空提交）
+          if not clean_rule:
+              print("No rules generated — skipping file write.")
+              sys.exit(0)
+
+          out = {"version": 3, "rules": [clean_rule]}
+          os.makedirs("rules", exist_ok=True)
           with open("rules/globalmedia.json", "w", encoding="utf-8") as f:
-              json.dump(singbox_rules, f, indent=2, ensure_ascii=False)
+              json.dump(out, f, indent=2, ensure_ascii=False)
+          print("Wrote rules/globalmedia.json")
           EOF
 
-      - name: Commit and push
+      - name: Commit and push (only if file exists)
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add rules/globalmedia.json
-          git commit -m "Update sing-box globalmedia rules" || echo "No changes"
-          git push
+          if [ -f rules/globalmedia.json ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add rules/globalmedia.json
+            git commit -m "Update sing-box globalmedia rules" || echo "No changes"
+            git push
+          else
+            echo "No rules/globalmedia.json generated — skipping push."
+          fi
