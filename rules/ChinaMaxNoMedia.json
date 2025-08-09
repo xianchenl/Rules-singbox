@@ -1,0 +1,36 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain_keyword": [
+        ".tmall.com",
+        "alicdn",
+        "alipay",
+        "aliyun",
+        "baidu",
+        "beplay",
+        "officecdn",
+        "taobao",
+        "hnagroup",
+        "stripe",
+        "weibo"
+      ],
+      "package_name": [
+        "com.taobao.taobao",
+        "com.bilibili.app.blue",
+        "com.bilibili.app.in",
+        "com.bilibili.comic",
+        "com.bilibili.comic.intl",
+        "tv.danmaku.bili",
+        "tv.danmaku.bilibilihd",
+        "com.zhiliaoapp.musically",
+        "com.jjwxc.reader",
+        "com.xiaomi.mibrain.speech",
+        "小米云服务.exe",
+        "Thunder",
+        "Thunder.exe",
+        "com.qiyi.video"
+      ]
+    }
+  ]
+}
