@@ -3,7 +3,7 @@ name: Clone and Convert Clash YAML to JSON (exclude No_Resolve)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # UTC每天凌晨0点触发
+    - cron: '0 0 * * *'
 
 jobs:
   clone_and_convert:
@@ -27,16 +27,7 @@ jobs:
           mkdir -p rules
           find temp_repo/rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | while read -r yaml_file; do
             base_name=$(basename "${yaml_file%.*}.json")
-python3 <<EOF
-import yaml
-import json
-
-with open("$yaml_file", "r", encoding="utf-8") as f:
-    data = yaml.safe_load(f)
-
-with open("rules/$base_name", "w", encoding="utf-8") as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
-EOF
+            python3 -c "import yaml,json;f=open('$yaml_file','r',encoding='utf-8');d=yaml.safe_load(f);f.close();f=open('rules/$base_name','w',encoding='utf-8');json.dump(d,f,ensure_ascii=False,indent=2);f.close()"
           done
 
       - name: 提交并推送改动
