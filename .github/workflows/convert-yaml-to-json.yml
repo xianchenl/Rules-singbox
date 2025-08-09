@@ -1,4 +1,4 @@
-name: Convert Clash YAML to sing-box JSON
+name: Convert Clash YAML to sing-box JSON (Node.js)
 
 on:
   workflow_dispatch:
@@ -12,88 +12,142 @@ jobs:
       contents: write
 
     steps:
-      - name: 安装 Python 依赖
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip
-          pip3 install pyyaml
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: 克隆规则仓库
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install yaml fs-extra
+
+      - name: Clone ios_rule_script repo
         run: git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
 
-      - name: 转换 YAML 到 sing-box JSON (排除 No_Resolve)
-        shell: bash
+      - name: Convert YAML files to sing-box JSON
         run: |
-          mkdir -p rules
-          find temp_repo/rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | while read -r yaml_file; do
-            base_name=$(basename "${yaml_file%.*}.json")
-            cat <<'EOF' | python3 - "$yaml_file" "rules/$base_name"
-import yaml
-import json
-import sys
-import os
+          node <<'EOF'
+          const fs = require('fs-extra');
+          const path = require('path');
+          const YAML = require('yaml');
 
-yaml_file = sys.argv[1]
-json_file = sys.argv[2]
+          const mapping = {
+            "DOMAIN": "domain",
+            "DOMAIN-SUFFIX": "domain_suffix",
+            "DOMAIN-KEYWORD": "domain_keyword",
+            "DOMAIN-REGEX": "domain_regex",
+            "IP-CIDR": "ip_cidr",
+            "IP-CIDR6": "ip_cidr",
+            "IP6-CIDR": "ip_cidr",
+            "SRC-IP-CIDR": "source_ip_cidr",
+            "PROCESS-NAME": "package_name",
+            "PROCESS-PATH": "process_path",
+            "PROCESS-PATH-REGEX": "process_path_regex",
+            "PORT": "port",
+            "PORT-RANGE": "port_range",
+            "SRC-PORT": "source_port",
+            "SRC-PORT-RANGE": "source_port_range"
+          };
 
-with open(yaml_file, 'r', encoding='utf-8') as f:
-    data = yaml.safe_load(f) or {}
+          async function processFile(yamlPath, jsonPath) {
+            try {
+              const content = await fs.readFile(yamlPath, 'utf8');
+              const data = YAML.parse(content) || {};
+              const rule = {};
 
-mapping = {
-    'DOMAIN': 'domain',
-    'DOMAIN-SUFFIX': 'domain_suffix',
-    'DOMAIN-KEYWORD': 'domain_keyword',
-    'DOMAIN-REGEX': 'domain_regex',
-    'IP-CIDR': 'ip_cidr',
-    'IP-CIDR6': 'ip_cidr',
-    'IP6-CIDR': 'ip_cidr',
-    'SRC-IP-CIDR': 'source_ip_cidr',
-    'PROCESS-NAME': 'package_name',
-    'PROCESS-PATH': 'process_path',
-    'PROCESS-PATH-REGEX': 'process_path_regex',
-    'PORT': 'port',
-    'PORT-RANGE': 'port_range',
-    'SRC-PORT': 'source_port',
-    'SRC-PORT-RANGE': 'source_port_range'
-}
+              if (!Array.isArray(data.payload)) {
+                console.log(`Skipping ${yamlPath}, no payload array`);
+                return;
+              }
 
-rule = {}
+              for (const item of data.payload) {
+                if (typeof item !== 'string' || !item) continue;
+                const parts = item.split(',', 2);
+                if (parts.length !== 2) continue;
+                const [typeRaw, valueRaw] = parts;
+                const type = typeRaw.trim().toUpperCase();
+                let value = valueRaw.trim();
 
-for item in data.get('payload', []):
-    if not item or not isinstance(item, str):
-        continue
-    parts = item.split(',', 1)
-    if len(parts) != 2:
-        continue
-    t, v = parts[0].strip().upper(), parts[1].strip()
-    if t in mapping:
-        key = mapping[t]
-        if key == 'domain_suffix' and not v.startswith('.'):
-            v = '.' + v
-        rule.setdefault(key, []).append(v)
+                if (mapping[type]) {
+                  const key = mapping[type];
+                  if (key === 'domain_suffix' && !value.startsWith('.')) {
+                    value = '.' + value;
+                  }
+                  if (!rule[key]) rule[key] = [];
+                  rule[key].push(value);
+                }
+              }
 
-clean_rule = {k: v for k, v in rule.items() if v}
+              // 清理空字段
+              for (const key in rule) {
+                if (!rule[key] || rule[key].length === 0) {
+                  delete rule[key];
+                }
+              }
 
-if not clean_rule:
-    sys.exit(0)
+              if (Object.keys(rule).length === 0) {
+                console.log(`No valid rules in ${yamlPath}, skipping.`);
+                return;
+              }
 
-os.makedirs(os.path.dirname(json_file), exist_ok=True)
+              const output = {
+                version: 3,
+                rules: [rule]
+              };
 
-with open(json_file, 'w', encoding='utf-8') as f:
-    json.dump({'version': 3, 'rules': [clean_rule]}, f, indent=2, ensure_ascii=False)
+              await fs.ensureDir(path.dirname(jsonPath));
+              await fs.writeJson(jsonPath, output, { spaces: 2, encoding: 'utf8' });
+              console.log(`Wrote ${jsonPath}`);
+            } catch (err) {
+              console.error(`Error processing ${yamlPath}:`, err);
+            }
+          }
 
-print(f'Wrote {json_file}')
-EOF
-          done
+          async function main() {
+            const rootDir = 'temp_repo/rule/Clash';
+            const outDir = 'rules';
 
-      - name: 提交并推送改动
+            // 递归查找所有 yaml 文件，排除文件名包含 No_Resolve 的
+            async function walk(dir) {
+              let files = [];
+              for (const f of await fs.readdir(dir)) {
+                const fullPath = path.join(dir, f);
+                const stat = await fs.stat(fullPath);
+                if (stat.isDirectory()) {
+                  files = files.concat(await walk(fullPath));
+                } else if ((f.endsWith('.yaml') || f.endsWith('.yml')) && !f.includes('No_Resolve')) {
+                  files.push(fullPath);
+                }
+              }
+              return files;
+            }
+
+            const yamlFiles = await walk(rootDir);
+            await fs.ensureDir(outDir);
+
+            for (const yamlFile of yamlFiles) {
+              const baseName = path.basename(yamlFile, path.extname(yamlFile)) + '.json';
+              const jsonPath = path.join(outDir, baseName);
+              await processFile(yamlFile, jsonPath);
+            }
+          }
+
+          main().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          EOF
+
+      - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add rules/*.json
           if ! git diff --cached --quiet; then
-            git commit -m "Convert Clash YAML to sing-box JSON (exclude No_Resolve)"
+            git commit -m "Update sing-box JSON rules"
             git push
           else
-            echo "No changes to commit"
+            echo "No changes detected."
           fi
