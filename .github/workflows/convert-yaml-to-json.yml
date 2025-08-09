@@ -12,32 +12,34 @@ jobs:
       contents: write
 
     steps:
-      - name: Set up Python and install PyYAML
+      - name: 安装 Python 及依赖
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip
           pip3 install pyyaml
 
-      - name: Clone ios_rule_script repo manually
+      - name: 克隆 ios_rule_script 仓库
         run: |
           git clone --depth=1 https://github.com/blackmatrix7/ios_rule_script.git temp_repo
 
-      - name: Convert YAML to JSON excluding No_Resolve files
+      - name: 转换 YAML 到 JSON（排除 No_Resolve 文件）
         run: |
           mkdir -p rules
           find temp_repo/rule/Clash -type f \( -name '*.yaml' -o -name '*.yml' \) | grep -v 'No_Resolve' | while read -r yaml_file; do
             base_name=$(basename "${yaml_file%.*}.json")
-            python3 -c "
-import yaml, json, sys
-f=open('$yaml_file', 'r', encoding='utf-8')
-data = yaml.safe_load(f)
-f.close()
-with open('rules/' + '$base_name', 'w', encoding='utf-8') as out:
-    json.dump(data, out, ensure_ascii=False, indent=2)
-"
+            python3 <<EOF
+import yaml
+import json
+
+with open("$yaml_file", "r", encoding="utf-8") as f:
+    data = yaml.safe_load(f)
+
+with open("rules/$base_name", "w", encoding="utf-8") as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+EOF
           done
 
-      - name: Commit and push JSON files
+      - name: 提交并推送改动
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
