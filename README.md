@@ -1,2 +1,2 @@
 # Rules-singbox
-rules for singbox
+rule-set for singbox
