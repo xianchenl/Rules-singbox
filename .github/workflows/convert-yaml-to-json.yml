@@ -91,7 +91,7 @@ jobs:
               }
 
               const output = {
-                version: 3,
+                version: 2,
                 rules: [rule]
               };
 
