@@ -75,21 +75,6 @@
     },
     {
       "type": "selector",
-      "tag": "🔍 Bing",
-      "interrupt_exist_connections": true,
-      "outbounds": [
-        "🚀 节点选择",
-        "🇭🇰 香港",
-        "🇹🇼 台湾",
-        "🇸🇬 新加坡",
-        "🇯🇵 日本",
-        "🇺🇸 美国",
-        "🇪🇺 欧洲",
-        "🎯 全球直连"
-      ]
-    },
-    {
-      "type": "selector",
       "tag": "▶️ YouTube",
       "interrupt_exist_connections": true,
       "outbounds": [
@@ -108,6 +93,80 @@
       "interrupt_exist_connections": true,
       "outbounds": [
         "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🔍 Bing",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲",
+        "🎯 全球直连"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🤖 AI",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "📦 Github",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "☁️ Onedrive",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🪟 Microsoft",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
         "🇭🇰 香港",
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
@@ -216,65 +275,6 @@
       ]
     },
     {
-      "type": "selector",
-      "tag": "🤖 AI",
-      "interrupt_exist_connections": true,
-      "outbounds": [
-        "🚀 节点选择",
-        "🇭🇰 香港",
-        "🇹🇼 台湾",
-        "🇸🇬 新加坡",
-        "🇯🇵 日本",
-        "🇺🇸 美国",
-        "🇪🇺 欧洲"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "📦 Github",
-      "interrupt_exist_connections": true,
-      "outbounds": [
-        "🚀 节点选择",
-        "🎯 全球直连",
-        "🇭🇰 香港",
-        "🇹🇼 台湾",
-        "🇸🇬 新加坡",
-        "🇯🇵 日本",
-        "🇺🇸 美国",
-        "🇪🇺 欧洲"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "☁️ Onedrive",
-      "interrupt_exist_connections": true,
-      "outbounds": [
-        "🚀 节点选择",
-        "🎯 全球直连",
-        "🇭🇰 香港",
-        "🇹🇼 台湾",
-        "🇸🇬 新加坡",
-        "🇯🇵 日本",
-        "🇺🇸 美国",
-        "🇪🇺 欧洲"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "🪟 Microsoft",
-      "interrupt_exist_connections": true,
-      "outbounds": [
-        "🚀 节点选择",
-        "🎯 全球直连",
-        "🇭🇰 香港",
-        "🇹🇼 台湾",
-        "🇸🇬 新加坡",
-        "🇯🇵 日本",
-        "🇺🇸 美国",
-        "🇪🇺 欧洲"
-      ]
-    },
-    {
       "type": "direct",
       "tag": "🎯 全球直连"
     },
@@ -283,83 +283,117 @@
       "tag": "🇭🇰 香港",
       "interrupt_exist_connections": true,
       "outbounds": [
-        "🇭🇰 香港自动♻️"
+        "🇭🇰 香港自动♻️",
+        "🇭🇰 Hong Kong",
+        "🇭🇰 Hong Kong[HKT]",
+        "🇭🇰 Hong Kong Auto",
+        "🇭🇰 Hong Kong SE"
       ]
     },
     {
       "type": "urltest",
       "tag": "🇭🇰 香港自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
+      "outbounds": [
+        "🇭🇰 Hong Kong",
+        "🇭🇰 Hong Kong[HKT]",
+        "🇭🇰 Hong Kong Auto",
+        "🇭🇰 Hong Kong SE"
+      ],
+      "url": "https://www.apple.com/library/test/success.html",
+      "interval": "3m",
+      "tolerance": 50,
+      "interrupt_exist_connections": true
     },
     {
       "type": "selector",
       "tag": "🇹🇼 台湾",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇨🇳 Taiwan[Hinet]"
+      ]
     },
     {
       "type": "urltest",
       "tag": "🇹🇼 台湾自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
+      "outbounds": [
+        "🇨🇳 Taiwan[Hinet]"
+      ],
+      "url": "https://www.apple.com/library/test/success.html",
+      "interval": "3m",
+      "tolerance": 50,
+      "interrupt_exist_connections": true
     },
     {
       "type": "selector",
       "tag": "🇸🇬 新加坡",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇸🇬 Singapore"
+      ]
     },
     {
       "type": "urltest",
       "tag": "🇸🇬 新加坡自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
+      "outbounds": [
+        "🇸🇬 Singapore"
+      ],
+      "url": "https://www.apple.com/library/test/success.html",
+      "interval": "3m",
+      "tolerance": 50,
+      "interrupt_exist_connections": true
     },
     {
       "type": "selector",
       "tag": "🇯🇵 日本",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇯🇵 Japan"
+      ]
     },
     {
       "type": "urltest",
       "tag": "🇯🇵 日本自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
+      "outbounds": [
+        "🇯🇵 Japan"
+      ],
+      "url": "https://www.apple.com/library/test/success.html",
+      "interval": "3m",
+      "tolerance": 50,
+      "interrupt_exist_connections": true
     },
     {
       "type": "selector",
       "tag": "🇺🇸 美国",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇺🇸 Los Angeles",
+        "🇺🇸 Los Angeles-Vless",
+        "🇺🇸 Chicago",
+        "🇺🇸 Ashburn[Charter]"
+      ]
     },
     {
       "type": "urltest",
       "tag": "🇺🇸 美国自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
+      "outbounds": [
+        "🇺🇸 Los Angeles",
+        "🇺🇸 Los Angeles-Vless",
+        "🇺🇸 Chicago",
+        "🇺🇸 Ashburn[Charter]"
+      ],
+      "url": "https://www.apple.com/library/test/success.html",
+      "interval": "3m",
+      "tolerance": 50,
+      "interrupt_exist_connections": true
     },
     {
       "type": "selector",
       "tag": "🇪🇺 欧洲",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇬🇧 United Kingdom",
+        "🇵🇱 Poland"
+      ]
     },
     {
       "type": "selector",
@@ -391,6 +425,182 @@
         "🇺🇸 美国",
         "🇪🇺 欧洲"
       ]
+    },
+    {
+      "tag": "🇭🇰 Hong Kong",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10281,
+      "password": "2Zb4G09uRP",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇭🇰 Hong Kong[HKT]",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10281,
+      "password": "3r38NW1sdr",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇭🇰 Hong Kong Auto",
+      "type": "shadowsocks",
+      "server": "sxjx.ndvfp.cn",
+      "server_port": 50274,
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "+j/J3JUaEYNKgGDROrp7TeNziBMLnzna/tvC9DyU38U=:V/BMIkVCrdoRnm8TYVUyDMUt5oiZIQ0tZRt8SDrPPuA=",
+      "udp_fragment": true,
+      "tcp_fast_open": true
+    },
+    {
+      "tag": "🇭🇰 Hong Kong SE",
+      "type": "shadowsocks",
+      "server": "private-forward-sz-236681.easay.xyz",
+      "server_port": 38836,
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "+j/J3JUaEYNKgGDROrp7TeNziBMLnzna/tvC9DyU38U=:V/BMIkVCrdoRnm8TYVUyDMUt5oiZIQ0tZRt8SDrPPuA=",
+      "udp_fragment": true,
+      "tcp_fast_open": true
+    },
+    {
+      "tag": "🇸🇬 Singapore",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10282,
+      "password": "lHrZqaeRVS",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇨🇳 Taiwan[Hinet]",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10283,
+      "password": "MipOYAtPaE",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇯🇵 Japan",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10287,
+      "password": "NpawTrNzJG",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇺🇸 Los Angeles",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10284,
+      "password": "xIQiMMKnds",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇺🇸 Los Angeles-Vless",
+      "type": "vless",
+      "server": "23.165.40.67",
+      "server_port": 443,
+      "uuid": "fb119687-a15b-4281-fcb2-e0aade0f1763",
+      "tls": {
+        "enabled": true,
+        "server_name": "updates.cdn-apple.com",
+        "insecure": false,
+        "reality": {
+          "enabled": true,
+          "public_key": "PQCGJkKrmSsr7BBOmf50zn5QA_3dPqBrF2dZx-2vbl8",
+          "short_id": "b9c86c3072"
+        },
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        }
+      },
+      "udp_fragment": true,
+      "flow": "xtls-rprx-vision",
+      "tcp_fast_open": true
+    },
+    {
+      "tag": "🇺🇸 Chicago",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10286,
+      "password": "5jdaDiaBNZ",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇺🇸 Ashburn[Charter]",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10287,
+      "password": "dx7Cbdq3nE",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇵🇪 Peru",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10289,
+      "password": "DNniGucUT8",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇬🇧 United Kingdom",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10285,
+      "password": "0AktD5caVc",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
+    },
+    {
+      "tag": "🇵🇱 Poland",
+      "type": "anytls",
+      "server": "sz.2wdpux.top",
+      "server_port": 10288,
+      "password": "PELNuJ6umj",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.apple.com",
+        "insecure": true
+      }
     }
   ],
   "route": {
