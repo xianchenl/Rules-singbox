@@ -760,7 +760,7 @@
         "tag": "Local-DNS-Resolver",
         "type": "udp",
         "server_port": 53,
-        "server": "223.5.5.5"
+        "server": "223.5.5.5",
         "strategy": "prefer_ipv4"
       },
       {
