@@ -287,6 +287,36 @@
       ]
     },
     {
+      "type": "selector",
+      "tag": "🇹🇼 台湾",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "selector",
+      "tag": "🇸🇬 新加坡",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "selector",
+      "tag": "🇯🇵 日本",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "selector",
+      "tag": "🇺🇸 美国",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "selector",
+      "tag": "🇪🇺 欧洲",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
       "type": "urltest",
       "tag": "🇭🇰 香港自动♻️",
       "outbounds": [],
@@ -294,12 +324,6 @@
      "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "🇹🇼 台湾",
-      "interrupt_exist_connections": true,
-      "outbounds": []
     },
     {
       "type": "urltest",
@@ -311,12 +335,6 @@
      "interrupt_exist_connections": true
     },
     {
-      "type": "selector",
-      "tag": "🇸🇬 新加坡",
-      "interrupt_exist_connections": true,
-      "outbounds": []
-    },
-    {
       "type": "urltest",
       "tag": "🇸🇬 新加坡自动♻️",
       "outbounds": [],
@@ -324,12 +342,6 @@
      "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "🇯🇵 日本",
-      "interrupt_exist_connections": true,
-      "outbounds": []
     },
     {
       "type": "urltest",
@@ -341,12 +353,6 @@
      "interrupt_exist_connections": true
     },
     {
-      "type": "selector",
-      "tag": "🇺🇸 美国",
-      "interrupt_exist_connections": true,
-      "outbounds": []
-    },
-    {
       "type": "urltest",
       "tag": "🇺🇸 美国自动♻️",
       "outbounds": [],
@@ -354,12 +360,6 @@
      "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "🇪🇺 欧洲",
-      "interrupt_exist_connections": true,
-      "outbounds": []
     },
     {
       "type": "selector",
