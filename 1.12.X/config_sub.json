@@ -290,25 +290,33 @@
       "type": "selector",
       "tag": "🇹🇼 台湾",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇹🇼 台湾自动♻️"
+      ]
     },
     {
       "type": "selector",
       "tag": "🇸🇬 新加坡",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇸🇬 新加坡自动♻️"
+      ]
     },
     {
       "type": "selector",
       "tag": "🇯🇵 日本",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇯🇵 日本自动♻️"
+      ]
     },
     {
       "type": "selector",
       "tag": "🇺🇸 美国",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇺🇸 美国自动♻️"
+      ]
     },
     {
       "type": "selector",
