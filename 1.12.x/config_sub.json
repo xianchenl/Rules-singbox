@@ -161,14 +161,14 @@
       "tag": "🔍 Bing",
       "interrupt_exist_connections": true,
       "outbounds": [
-        "🎯 全球直连",
         "🚀 节点选择",
         "🇭🇰 香港",
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇯🇵 日本",
         "🇺🇸 美国",
-        "🇪🇺 欧洲"
+        "🇪🇺 欧洲",
+        "🎯 全球直连"
       ]
     },
     {
@@ -232,6 +232,7 @@
       "tag": "🎥 bilibili",
       "interrupt_exist_connections": true,
       "outbounds": [
+        "🎯 全球直连",
         "🚀 节点选择",
         "🇭🇰 香港",
         "🇹🇼 台湾",
@@ -327,6 +328,36 @@
       ]
     },
     {
+      "type": "selector",
+      "tag": "☁️ Onedrive",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🪟 Microsoft",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
       "type": "direct",
       "tag": "🎯 全球直连"
     },
@@ -370,6 +401,20 @@
           "Github"
         ],
         "outbound": "📦 Github"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Onedrive"
+        ],
+        "outbound": "☁️ Onedrive"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Microsoft"
+        ],
+        "outbound": "🪟 Microsoft"
       },
       {
         "action": "route",
@@ -578,6 +623,20 @@
         "tag": "Github",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-github.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Onedrive",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-openai.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Microsoft",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-openai.srs",
         "format": "binary",
         "download_detour": "🚀 节点选择"
       },
