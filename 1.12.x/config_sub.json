@@ -753,15 +753,13 @@
         "domain_resolver": "Local-DNS-Resolver",
         "server_port": 443,
         "server": "223.5.5.5",
-        "strategy": "prefer_ipv4",
         "path": "/dns-query"
       },
       {
         "tag": "Local-DNS-Resolver",
         "type": "udp",
         "server_port": 53,
-        "server": "223.5.5.5",
-        "strategy": "prefer_ipv4"
+        "server": "223.5.5.5"
       },
       {
         "tag": "Remote-DNS",
@@ -769,16 +767,14 @@
         "detour": "🚀 节点选择",
         "domain_resolver": "Remote-DNS-Resolver",
         "server_port": 853,
-        "server": "8.8.8.8",
-        "strategy": "prefer_ipv4"
+        "server": "8.8.8.8"
       },
       {
         "tag": "Remote-DNS-Resolver",
         "type": "udp",
         "detour": "🚀 节点选择",
         "server_port": 53,
-        "server": "8.8.8.8",
-        "strategy": "prefer_ipv4"
+        "server": "8.8.8.8"
       }
     ],
     "rules": [
