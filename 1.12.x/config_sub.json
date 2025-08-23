@@ -71,7 +71,7 @@
       "tag": "🇭🇰 香港自动♻️",
       "outbounds": [],
      "url": "https://www.apple.com/library/test/success.html",
-     "interval": "300",
+     "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
     },
