@@ -69,7 +69,7 @@
     {
       "type": "urltest",
       "tag": "🇭🇰 香港自动♻️",
-      "outbounds": [],
+      "outbounds": []
      "url": "https://www.apple.com/library/test/success.html",
      "interval": "300",
      "tolerance": 50,
