@@ -64,7 +64,22 @@
       "type": "selector",
       "tag": "🚀 节点选择",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🇭🇰 香港",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🇭🇰 香港自动♻️"
+      ]
     },
     {
       "type": "urltest",
@@ -77,17 +92,18 @@
     },
     {
       "type": "selector",
-      "tag": "🇭🇰 香港",
-      "interrupt_exist_connections": true,
-      "outbounds": [
-        "🇭🇰 香港自动♻️"
-      ]
-    },
-    {
-      "type": "selector",
       "tag": "🇹🇼 台湾",
       "interrupt_exist_connections": true,
       "outbounds": []
+    },
+    {
+      "type": "urltest",
+      "tag": "🇹🇼 台湾自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
     },
     {
       "type": "selector",
@@ -96,16 +112,43 @@
       "outbounds": []
     },
     {
+      "type": "urltest",
+      "tag": "🇸🇬 新加坡自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
+    },
+    {
       "type": "selector",
       "tag": "🇯🇵 日本",
       "interrupt_exist_connections": true,
       "outbounds": []
     },
     {
+      "type": "urltest",
+      "tag": "🇯🇵 日本自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
+    },
+    {
       "type": "selector",
       "tag": "🇺🇸 美国",
       "interrupt_exist_connections": true,
       "outbounds": []
+    },
+    {
+      "type": "urltest",
+      "tag": "🇺🇸 美国自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
     },
     {
       "type": "selector",
