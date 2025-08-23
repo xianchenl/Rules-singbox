@@ -75,89 +75,6 @@
     },
     {
       "type": "selector",
-      "tag": "🇭🇰 香港",
-      "interrupt_exist_connections": true,
-      "outbounds": [
-        "🇭🇰 香港自动♻️"
-      ]
-    },
-    {
-      "type": "urltest",
-      "tag": "🇭🇰 香港自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "🇹🇼 台湾",
-      "interrupt_exist_connections": true,
-      "outbounds": []
-    },
-    {
-      "type": "urltest",
-      "tag": "🇹🇼 台湾自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "🇸🇬 新加坡",
-      "interrupt_exist_connections": true,
-      "outbounds": []
-    },
-    {
-      "type": "urltest",
-      "tag": "🇸🇬 新加坡自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "🇯🇵 日本",
-      "interrupt_exist_connections": true,
-      "outbounds": []
-    },
-    {
-      "type": "urltest",
-      "tag": "🇯🇵 日本自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "🇺🇸 美国",
-      "interrupt_exist_connections": true,
-      "outbounds": []
-    },
-    {
-      "type": "urltest",
-      "tag": "🇺🇸 美国自动♻️",
-      "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
-     "interval": "3m",
-     "tolerance": 50,
-     "interrupt_exist_connections": true
-    },
-    {
-      "type": "selector",
-      "tag": "🇪🇺 欧洲",
-      "interrupt_exist_connections": true,
-      "outbounds": []
-    },
-    {
-      "type": "selector",
       "tag": "🔍 Bing",
       "interrupt_exist_connections": true,
       "outbounds": [
@@ -173,7 +90,7 @@
     },
     {
       "type": "selector",
-      "tag": "🌐 Google",
+      "tag": "▶️ YouTube",
       "interrupt_exist_connections": true,
       "outbounds": [
         "🚀 节点选择",
@@ -187,7 +104,7 @@
     },
     {
       "type": "selector",
-      "tag": "▶️ YouTube",
+      "tag": "🌐 Google",
       "interrupt_exist_connections": true,
       "outbounds": [
         "🚀 节点选择",
@@ -363,6 +280,89 @@
     },
     {
       "type": "selector",
+      "tag": "🇭🇰 香港",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🇭🇰 香港自动♻️"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "🇭🇰 香港自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "🇹🇼 台湾",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "urltest",
+      "tag": "🇹🇼 台湾自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "🇸🇬 新加坡",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "urltest",
+      "tag": "🇸🇬 新加坡自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "🇯🇵 日本",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "urltest",
+      "tag": "🇯🇵 日本自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "🇺🇸 美国",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "urltest",
+      "tag": "🇺🇸 美国自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "3m",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
+    },
+    {
+      "type": "selector",
+      "tag": "🇪🇺 欧洲",
+      "interrupt_exist_connections": true,
+      "outbounds": []
+    },
+    {
+      "type": "selector",
       "tag": "🐟 漏网之鱼",
       "interrupt_exist_connections": true,
       "outbounds": [
@@ -398,9 +398,10 @@
       {
         "action": "route",
         "rule_set": [
-          "Github"
+          "Bing",
+          "Bing-CN"
         ],
-        "outbound": "📦 Github"
+        "outbound": "🔍 Bing"
       },
       {
         "action": "route",
@@ -408,6 +409,13 @@
           "Onedrive"
         ],
         "outbound": "☁️ Onedrive"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Github"
+        ],
+        "outbound": "📦 Github"
       },
       {
         "action": "route",
@@ -489,14 +497,6 @@
           "Google"
         ],
         "outbound": "🌐 Google"
-      },
-      {
-        "action": "route",
-        "rule_set": [
-          "Bing",
-          "Bing-CN"
-        ],
-        "outbound": "🔍 Bing"
       },
       {
         "action": "sniff",
@@ -753,6 +753,7 @@
         "domain_resolver": "Local-DNS-Resolver",
         "server_port": 443,
         "server": "223.5.5.5",
+        "strategy": "prefer_ipv4",
         "path": "/dns-query"
       },
       {
@@ -760,6 +761,7 @@
         "type": "udp",
         "server_port": 53,
         "server": "223.5.5.5"
+        "strategy": "prefer_ipv4"
       },
       {
         "tag": "Remote-DNS",
@@ -767,14 +769,16 @@
         "detour": "🚀 节点选择",
         "domain_resolver": "Remote-DNS-Resolver",
         "server_port": 853,
-        "server": "8.8.8.8"
+        "server": "8.8.8.8",
+        "strategy": "prefer_ipv4"
       },
       {
         "tag": "Remote-DNS-Resolver",
         "type": "udp",
         "detour": "🚀 节点选择",
         "server_port": 53,
-        "server": "8.8.8.8"
+        "server": "8.8.8.8",
+        "strategy": "prefer_ipv4"
       }
     ],
     "rules": [
@@ -807,6 +811,6 @@
     "disable_expire": false,
     "independent_cache": false,
     "final": "Remote-DNS",
-    "strategy": "prefer_ipv6"
+    "strategy": "prefer_ipv4"
   }
 }
