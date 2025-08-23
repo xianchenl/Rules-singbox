@@ -67,10 +67,21 @@
       "outbounds": []
     },
     {
+      "type": "urltest",
+      "tag": "🇭🇰 香港自动♻️",
+      "outbounds": [],
+     "url": "https://www.apple.com/library/test/success.html",
+     "interval": "300",
+     "tolerance": 50,
+     "interrupt_exist_connections": true
+    },
+    {
       "type": "selector",
       "tag": "🇭🇰 香港",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": [
+        "🇭🇰 香港自动♻️",
+      ],
     },
     {
       "type": "selector",
