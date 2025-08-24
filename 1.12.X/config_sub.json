@@ -676,7 +676,7 @@
       {
         "action": "route",
         "rule_set": [
-          "Speedtest"
+          "Steam"
         ],
         "outbound": "🎮 Steam"
       },
