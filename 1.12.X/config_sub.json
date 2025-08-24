@@ -662,7 +662,7 @@
       {
         "action": "route",
         "rule_set": [
-          "Spotify"
+          "Speedtest"
         ],
         "outbound": "🛜 Speedtest"
       },
