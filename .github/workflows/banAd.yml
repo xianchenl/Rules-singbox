@@ -1,0 +1,88 @@
+name: Convert banAd.yaml to sing-box JSON
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install fs-extra yaml
+
+      - name: Download banAd.yaml
+        run: |
+          mkdir -p temp_repo
+          curl -L -o temp_repo/banAd.yaml https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/banAd.yaml
+
+      - name: Convert banAd.yaml to sing-box JSON
+        run: |
+          node <<'EOF'
+          const fs = require('fs-extra');
+          const path = require('path');
+          const YAML = require('yaml');
+
+          async function main() {
+            const yamlPath = 'temp_repo/banAd.yaml';
+            const jsonPath = 'rules/banAd.json';
+
+            const content = await fs.readFile(yamlPath, 'utf8');
+            const data = YAML.parse(content) || {};
+            const payload = Array.isArray(data.payload) ? data.payload : [];
+
+            const rule = {
+              domain: [],
+              domain_suffix: []
+            };
+
+            for (const item of payload) {
+              if (typeof item !== 'string' || !item.trim()) continue;
+              let domain = item.trim();
+              if (domain.startsWith('*.')) {
+                rule.domain_suffix.push(domain.slice(2)); // 去掉*.
+              } else {
+                rule.domain.push(domain);
+              }
+            }
+
+            // 清理空数组
+            for (const key in rule) {
+              if (!rule[key].length) delete rule[key];
+            }
+
+            const output = {
+              version: 2,
+              rules: [rule]
+            };
+
+            await fs.ensureDir(path.dirname(jsonPath));
+            await fs.writeJson(jsonPath, output, { spaces: 2 });
+            console.log(`Wrote ${jsonPath}`);
+          }
+
+          main().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          EOF
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rules/banAd.json
+          git commit -m "Update banAd sing-box rules" || echo "No changes to commit"
+          git push
