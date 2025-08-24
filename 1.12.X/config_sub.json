@@ -433,6 +433,51 @@
       ]
     },
     {
+      "type": "selector",
+      "tag": "🎵 Spotify",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "💰 PayPal",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "💳 Wise",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
       "type": "direct",
       "tag": "🎯 全球直连"
     },
@@ -573,6 +618,9 @@
         "🗨️ Signal",
         "🛜 Speedtest",
         "🎮 Steam",
+        "🎵 Spotify",
+        "💰 PayPal",
+        "💳 Wise",
         "🇭🇰 香港",
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
@@ -593,7 +641,28 @@
       {
         "action": "route",
         "rule_set": [
-          "Steam"
+          "Wise"
+        ],
+        "outbound": "💳 Wise"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "PayPal"
+        ],
+        "outbound": "💰 PayPal"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Shopping"
+        ],
+        "outbound": "🎵 Spotify"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Spotify"
         ],
         "outbound": "🛜 Speedtest"
       },
@@ -846,6 +915,27 @@
         "tag": "Steam_cn",
         "type": "remote",
         "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/steam@cn.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Spotify",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/spotify.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "PayPal",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/paypal.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Wise",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/wise.srs",
         "format": "binary",
         "download_detour": "🚀 节点选择"
       },
