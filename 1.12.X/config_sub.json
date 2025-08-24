@@ -403,6 +403,36 @@
       ]
     },
     {
+      "type": "selector",
+      "tag": "🛜 Speedtest",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🎮 Steam",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
       "type": "direct",
       "tag": "🎯 全球直连"
     },
@@ -541,7 +571,8 @@
         "📞 Talkatone",
         "💬 Line",
         "🗨️ Signal",
-        "🎯 全球直连",
+        "🛜 Speedtest",
+        "🎮 Steam",
         "🇭🇰 香港",
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
@@ -559,6 +590,27 @@
   ],
   "route": {
     "rules": [
+      {
+        "action": "route",
+        "rule_set": [
+          "Steam"
+        ],
+        "outbound": "🛜 Speedtest"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Steam_cn"
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Speedtest"
+        ],
+        "outbound": "🎮 Steam"
+      },
       {
         "action": "route",
         "rule_set": [
@@ -790,6 +842,27 @@
       }
     ],
     "rule_set": [
+      {
+        "tag": "Steam_cn",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/steam@cn.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Steam",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/steam.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Speedtest",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/speedtest.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
       {
         "tag": "OpenAI",
         "type": "remote",
