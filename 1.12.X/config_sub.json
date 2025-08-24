@@ -205,7 +205,78 @@
     },
     {
       "type": "selector",
+      "tag": "🎬 HBO",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "📽️ PrimeVideo",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🎦 AppleTV",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🍎 Apple",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
       "tag": "🎥 bilibili",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🎞️ Emby",
       "interrupt_exist_connections": true,
       "outbounds": [
         "🎯 全球直连",
@@ -234,7 +305,7 @@
     },
     {
       "type": "selector",
-      "tag": "💬 X",
+      "tag": "💭 X",
       "interrupt_exist_connections": true,
       "outbounds": [
         "🚀 节点选择",
@@ -248,7 +319,7 @@
     },
     {
       "type": "selector",
-      "tag": "🧑‍🤝‍🧑 FaceBook",
+      "tag": "♾️ Meta",
       "interrupt_exist_connections": true,
       "outbounds": [
         "🚀 节点选择",
@@ -263,6 +334,62 @@
     {
       "type": "selector",
       "tag": "✈️ Telegram",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🕹️ Discord",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "📞 Talkatone",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "💬 Line",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "🗨️ Signal",
       "interrupt_exist_connections": true,
       "outbounds": [
         "🚀 节点选择",
@@ -399,11 +526,20 @@
         "🪟 Microsoft",
         "📺 Netflix",
         "📹 Disney+",
+        "🎬 HBO",
+        "📽️ PrimeVideo",
+        "🎦 AppleTV",
+        "🍎 Apple",
         "🎥 bilibili",
+        "🎞️ Emby",
         "🎬 TikTok",
-        "💬 X",
-        "🧑‍🤝‍🧑 FaceBook",
+        "💭 X",
+        "♾️ Meta",
         "✈️ Telegram",
+        "🕹️ Discord",
+        "📞 Talkatone",
+        "💬 Line",
+        "🗨️ Signal",
         "🎯 全球直连",
         "🇭🇰 香港",
         "🇹🇼 台湾",
@@ -463,25 +599,16 @@
       {
         "action": "route",
         "rule_set": [
-          "Telegram",
-          "Telegram_asn",
-          "Telegram_IP"
-        ],
-        "outbound": "✈️ Telegram"
-      },
-      {
-        "action": "route",
-        "rule_set": [
           "FaceBook"
         ],
-        "outbound": "🧑‍🤝‍🧑 FaceBook"
+        "outbound": "♾️ Meta"
       },
       {
         "action": "route",
         "rule_set": [
           "X"
         ],
-        "outbound": "💬 X"
+        "outbound": "💭 X"
       },
       {
         "action": "route",
@@ -514,6 +641,41 @@
       {
         "action": "route",
         "rule_set": [
+          "HBO"
+        ],
+        "outbound": "🎬 HBO"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "PrimeVideo"
+        ],
+        "outbound": "📽️ PrimeVideo"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "AppleTV"
+        ],
+        "outbound": "🎦 AppleTV"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Apple"
+        ],
+        "outbound": "🍎 Apple"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Emby"
+        ],
+        "outbound": "🎞️ Emby"
+      },
+      {
+        "action": "route",
+        "rule_set": [
           "Youtube"
         ],
         "outbound": "▶️ YouTube"
@@ -524,6 +686,43 @@
           "Google"
         ],
         "outbound": "🌐 Google"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Telegram",
+          "Telegram_asn",
+          "Telegram_IP"
+        ],
+        "outbound": "✈️ Telegram"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Discord"
+        ],
+        "outbound": "🕹️ Discord"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Talkatone"
+        ],
+        "outbound": "📞 Talkatone"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Line"
+        ],
+        "outbound": "💬 Line"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "Signal"
+        ],
+        "outbound": "🗨️ Signal"
       },
       {
         "action": "sniff",
@@ -675,9 +874,44 @@
         "download_detour": "🚀 节点选择"
       },
       {
+        "tag": "HBO",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/hbo.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "AppleTV",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/apple-tvplus.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "PrimeVideo",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/primevideo.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Emby",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/category-emby.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
         "tag": "Disney",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-disney.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Apple",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/apple.srs",
         "format": "binary",
         "download_detour": "🚀 节点选择"
       },
@@ -717,6 +951,34 @@
         "download_detour": "🚀 节点选择"
       },
       {
+        "tag": "Discord",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/discord.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Talkatone",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/talkatone.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Line",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/line.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "Signal",
+        "type": "remote",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/signal.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
         "tag": "Google",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-google.srs",
@@ -726,7 +988,7 @@
       {
         "tag": "Category-Ads",
         "type": "remote",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
+        "url": "https://github.com/Lanlan13-14/Rules-singbox/raw/refs/heads/main/rules/banAd_mini.srs",
         "format": "binary",
         "download_detour": "🚀 节点选择"
       },
