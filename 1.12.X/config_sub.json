@@ -1205,14 +1205,13 @@
         "type": "https",
         "domain_resolver": "Local-DNS-Resolver",
         "server_port": 443,
-        "server": "223.5.5.5",
-        "path": "/dns-query"
+        "address": "https://doh.pub/dns-query"
       },
       {
         "tag": "Local-DNS-Resolver",
         "type": "udp",
         "server_port": 53,
-        "server": "223.5.5.5"
+        "server": "119.29.29.29"
       },
       {
         "tag": "Remote-DNS",
@@ -1234,26 +1233,30 @@
       {
         "action": "route",
         "clash_mode": "direct",
-        "server": "Local-DNS"
+        "server": "Local-DNS",
+        "strategy": "prefer_ipv6"
       },
       {
         "action": "route",
         "clash_mode": "global",
-        "server": "Remote-DNS"
+        "server": "Remote-DNS",
+        "strategy": "prefer_ipv4"
       },
       {
         "action": "route",
         "rule_set": [
           "GeoSite-CN"
         ],
-        "server": "Local-DNS"
+        "server": "Local-DNS",
+        "strategy": "prefer_ipv6"
       },
       {
         "action": "route",
         "rule_set": [
           "GeoLocation-!CN"
         ],
-        "server": "Remote-DNS"
+        "server": "Remote-DNS",
+        "strategy": "prefer_ipv4"
       }
     ],
     "disable_cache": false,
