@@ -250,6 +250,7 @@
       "tag": "🍎 Apple",
       "interrupt_exist_connections": true,
       "outbounds": [
+        "🎯 全球直连",
         "🚀 节点选择",
         "🇭🇰 香港",
         "🇹🇼 台湾",
