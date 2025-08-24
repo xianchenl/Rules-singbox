@@ -1205,7 +1205,8 @@
         "type": "https",
         "domain_resolver": "Local-DNS-Resolver",
         "server_port": 443,
-        "server": "https://doh.pub/dns-query"
+        "server": "doh.pub",
+        "path": "/dns-query"
       },
       {
         "tag": "Local-DNS-Resolver",
