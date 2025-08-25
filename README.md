@@ -37,6 +37,9 @@ sub-store添加文件
 ```
 https://raw.githubusercontent.com/Lanlan13-14/Rules-singbox/refs/heads/main/1.12.X/config_sub.json#noCache
 ```
+For momo
+```
+https://raw.githubusercontent.com/Lanlan13-14/Rules-singbox/refs/heads/main/1.12.X/config_sub_momo.json#noCache
 
 添加脚本选择链接填入
 ```
