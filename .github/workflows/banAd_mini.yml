@@ -15,15 +15,103 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download BanAd_mini JSON
+      - name: Download BanAd_mini JSON and pcdn.json
         run: |
+          mkdir -p temp_repo
           mkdir -p rules
           curl -L https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Singbox.json \
-            -o rules/banAd_mini.json
+            -o temp_repo/banAd_mini.json
+          curl -L https://raw.githubusercontent.com/DDCHlsq/sing-ruleset/refs/heads/master/pcdn.json \
+            -o temp_repo/pcdn.json
+
+      - name: Merge pcdn.json into banAd_mini.json
+        run: |
+          node <<'EOF'
+          const fs = require('fs-extra');
+          const path = require('path');
+
+          async function main() {
+            const miniPath = 'temp_repo/banAd_mini.json';
+            const pcdnPath = 'temp_repo/pcdn.json';
+            const outputPath = 'rules/banAd_mini.json';
+
+            // 读取 banAd_mini.json
+            let miniData = {};
+            if (await fs.pathExists(miniPath)) {
+              miniData = JSON.parse(await fs.readFile(miniPath, 'utf8')) || {};
+            }
+
+            // banAd_mini 的规则结构
+            const combined = {
+              domain: [],
+              domain_suffix: [],
+              domain_regex: []
+            };
+
+            if (Array.isArray(miniData.rules)) {
+              for (const rule of miniData.rules) {
+                if (Array.isArray(rule.domain)) combined.domain.push(...rule.domain);
+                if (Array.isArray(rule.domain_suffix)) combined.domain_suffix.push(...rule.domain_suffix);
+                if (Array.isArray(rule.domain_regex)) combined.domain_regex.push(...rule.domain_regex);
+              }
+            }
+
+            // 读取并合并 pcdn.json
+            if (await fs.pathExists(pcdnPath)) {
+              const pcdnData = JSON.parse(await fs.readFile(pcdnPath, 'utf8')) || {};
+              if (Array.isArray(pcdnData.rules)) {
+                for (const rule of pcdnData.rules) {
+                  if (Array.isArray(rule.domain)) {
+                    combined.domain.push(...rule.domain.map(d => typeof d === 'string' ? d.trim() : d));
+                  }
+                  if (Array.isArray(rule.domain_suffix)) {
+                    combined.domain_suffix.push(
+                      ...rule.domain_suffix
+                        .map(d => typeof d === 'string' ? d.trim() : d)
+                        .map(d => d.startsWith('.') ? d.slice(1) : d)
+                    );
+                  }
+                  if (Array.isArray(rule.domain_regex)) {
+                    combined.domain_regex.push(...rule.domain_regex.map(d => typeof d === 'string' ? d.trim() : d));
+                  }
+                }
+              }
+            }
+
+            // 清洗去重
+            for (const key of ['domain', 'domain_suffix', 'domain_regex']) {
+              combined[key] = Array.from(new Set(
+                combined[key].map(d => typeof d === 'string' ? d.trim() : d)
+              ));
+
+              if (key === 'domain_suffix') {
+                combined[key] = combined[key].map(d => d.startsWith('.') ? d.slice(1) : d);
+              }
+
+              combined[key] = combined[key].sort();
+              if (!combined[key].length) delete combined[key];
+            }
+
+            // 输出 JSON
+            const output = {
+              version: 2,
+              rules: [combined]
+            };
+
+            await fs.ensureDir(path.dirname(outputPath));
+            await fs.writeJson(outputPath, output, { spaces: 2 });
+            console.log(`Merged banAd_mini.json + pcdn.json -> ${outputPath}`);
+          }
+
+          main().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          EOF
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add rules/banAd_mini.json
-          git diff --cached --quiet || (git commit -m "Update banAd_mini.json" && git push)
+          git diff --cached --quiet || (git commit -m "Update banAd_mini.json (merged with pcdn)" && git push)
