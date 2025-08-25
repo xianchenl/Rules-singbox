@@ -306,6 +306,21 @@
     },
     {
       "type": "selector",
+      "tag": "📰 Mainland Media",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 节点选择",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
       "tag": "💭 X",
       "interrupt_exist_connections": true,
       "outbounds": [
@@ -609,6 +624,7 @@
         "🎥 bilibili",
         "🎞️ Emby",
         "🎬 TikTok",
+        "📰 Mainland Media",
         "💭 X",
         "♾️ Meta",
         "✈️ Telegram",
@@ -808,6 +824,13 @@
           "Google"
         ],
         "outbound": "🌐 Google"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "CN_Media"
+        ],
+        "outbound": "📰 Mainland Media"
       },
       {
         "action": "route",
@@ -1090,6 +1113,13 @@
         "tag": "TikTok",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-tiktok.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "CN_Media",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/Lanlan13-14/Rules-singbox/refs/heads/main/rules/ChinaMedia.srs",
         "format": "binary",
         "download_detour": "🚀 节点选择"
       },
