@@ -11,7 +11,7 @@
       "external_ui": "/etc/momo/run/ui",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
       "external_ui_download_detour": "🚀 节点选择",
-      "secret": "40cf80546ed45fb9fc0a15fe0bcf3807ad0b4bb6453e25e784ee449cc4789ff4",
+      "secret": "",
       "default_mode": "rule"
     },
     "cache_file": {
