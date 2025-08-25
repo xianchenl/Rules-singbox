@@ -24,6 +24,9 @@ jobs:
           curl -L https://raw.githubusercontent.com/DDCHlsq/sing-ruleset/refs/heads/master/pcdn.json \
             -o temp_repo/pcdn.json
 
+      - name: Install dependencies
+        run: npm install fs-extra
+
       - name: Merge pcdn.json into banAd_mini.json
         run: |
           node <<'EOF'
