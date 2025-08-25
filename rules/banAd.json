@@ -100839,19 +100839,19 @@
         "va.huya.com"
       ],
       "domain_regex": [
-        "stun.*\\.qvb\\.qcloud\\.com",
+        ".*-pcdn-.*\\.biliapi\\.net",
+        ".*pcdn.*\\.xxpkg\\.com",
         "^(.+)-p2p-pull\\.(video|live)-voip\\.com$",
         "^(.+)-p2p\\.pull\\.yximgs\\.com$",
         "config-p2p-.*\\.vcloud\\.ks-live\\.com",
-        ".*pcdn.*\\.xxpkg\\.com",
-        "stun.*\\.douyucdn\\.cn",
-        "trk-([0-9\\-]+)\\.douyucdn\\.cn",
-        "p2pchunk-.*\\.douyucdn\\.cn",
-        "p2pable-.*\\.douyucdn\\.cn",
         "dyp2p-.*\\.douyucdn2\\.cn",
+        "p2pable-.*\\.douyucdn\\.cn",
+        "p2pchunk-.*\\.douyucdn\\.cn",
         "seeds.*-darwin\\.xycdn\\.com",
-        ".*-pcdn-.*\\.biliapi\\.net",
-        "stun.*\\.chat\\.bilibili\\.com"
+        "stun.*\\.chat\\.bilibili\\.com",
+        "stun.*\\.douyucdn\\.cn",
+        "stun.*\\.qvb\\.qcloud\\.com",
+        "trk-([0-9\\-]+)\\.douyucdn\\.cn"
       ]
     }
   ]
