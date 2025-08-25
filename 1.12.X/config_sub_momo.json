@@ -678,6 +678,19 @@
   "route": {
     "rules": [
       {
+        "action": "sniff",
+        "sniffer": [
+          "http",
+          "tls",
+          "quic",
+          "dns"
+        ]
+      },
+      {
+        "inbound": "dns-in",
+        "action": "hijack-dns"
+      },
+      {
         "action": "route",
         "rule_set": [
           "Wise"
