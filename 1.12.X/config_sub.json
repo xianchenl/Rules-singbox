@@ -321,6 +321,21 @@
     },
     {
       "type": "selector",
+      "tag": "🎙️ Global Media",
+      "interrupt_exist_connections": true,
+      "outbounds": [
+        "🚀 节点选择",
+        "🎯 全球直连",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇯🇵 日本",
+        "🇺🇸 美国",
+        "🇪🇺 欧洲"
+      ]
+    },
+    {
+      "type": "selector",
       "tag": "💭 X",
       "interrupt_exist_connections": true,
       "outbounds": [
@@ -625,6 +640,7 @@
         "🎞️ Emby",
         "🎬 TikTok",
         "📰 Mainland Media",
+        "🎙️ Global Media",
         "💭 X",
         "♾️ Meta",
         "✈️ Telegram",
@@ -831,6 +847,13 @@
           "CN_Media"
         ],
         "outbound": "📰 Mainland Media"
+      },
+      {
+        "action": "route",
+        "rule_set": [
+          "GL_Media"
+        ],
+        "outbound": "🎙️ Global Media"
       },
       {
         "action": "route",
@@ -1120,6 +1143,13 @@
         "tag": "CN_Media",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/Lanlan13-14/Rules-singbox/refs/heads/main/rules/ChinaMedia.srs",
+        "format": "binary",
+        "download_detour": "🚀 节点选择"
+      },
+      {
+        "tag": "GL_Media",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/Lanlan13-14/Rules-singbox/refs/heads/main/rules/GlobalMedia_Classical.srs",
         "format": "binary",
         "download_detour": "🚀 节点选择"
       },
