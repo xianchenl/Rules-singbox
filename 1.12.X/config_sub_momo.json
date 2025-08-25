@@ -1315,7 +1315,7 @@
         "action": "route",
         "clash_mode": "direct",
         "server": "Local-DNS",
-        "strategy": "prefer_ipv6"
+        "strategy": "prefer_ipv4"
       },
       {
         "action": "route",
@@ -1329,7 +1329,7 @@
           "GeoSite-CN"
         ],
         "server": "Local-DNS",
-        "strategy": "prefer_ipv6"
+        "strategy": "prefer_ipv4"
       },
       {
         "action": "route",
