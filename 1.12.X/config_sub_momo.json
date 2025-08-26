@@ -568,7 +568,7 @@
       "type": "urltest",
       "tag": "🇭🇰 香港自动♻️",
       "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
+     "url": "http://www.apple.com/library/test/success.html",
      "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
@@ -577,7 +577,7 @@
       "type": "urltest",
       "tag": "🇹🇼 台湾自动♻️",
       "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
+     "url": "http://www.apple.com/library/test/success.html",
      "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
@@ -586,7 +586,7 @@
       "type": "urltest",
       "tag": "🇸🇬 新加坡自动♻️",
       "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
+     "url": "http://www.apple.com/library/test/success.html",
      "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
@@ -595,7 +595,7 @@
       "type": "urltest",
       "tag": "🇯🇵 日本自动♻️",
       "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
+     "url": "http://www.apple.com/library/test/success.html",
      "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
@@ -604,7 +604,7 @@
       "type": "urltest",
       "tag": "🇺🇸 美国自动♻️",
       "outbounds": [],
-     "url": "https://www.apple.com/library/test/success.html",
+     "url": "http://www.apple.com/library/test/success.html",
      "interval": "3m",
      "tolerance": 50,
      "interrupt_exist_connections": true
