@@ -26,7 +26,9 @@
 >
 > Once you use and copy any file of this project, you are deemed to have accepted this disclaimer.
 
-- 本项目涉及的文件仅用于资源共享和学习研究，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断，有Bug建议可以提issue.
+- 本项目涉及的文件仅用于资源共享和学习研究，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断.
+
+- 有问题请提交issue，仅通过issue回复
 
 - 本项目规则为混合规则，使用前请三思
 
