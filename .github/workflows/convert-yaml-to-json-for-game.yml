@@ -1,4 +1,4 @@
-name: Convert Clash YAML to sing-box JSON Main
+name: Convert Clash Game YAML to sing-box JSON Main
 
 on:
   workflow_dispatch:
