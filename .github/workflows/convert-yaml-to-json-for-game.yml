@@ -1,0 +1,146 @@
+name: Convert Clash YAML to sing-box JSON Main
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install fs-extra yaml
+
+      - name: Download Game rules repo
+        run: |
+          rm -rf temp_repo
+          git clone --depth=1 https://github.com/Lanlan13-14/Rules.git temp_repo
+
+      - name: Convert YAML files to sing-box JSON
+        run: |
+          node <<'EOF'
+          const fs = require('fs-extra');
+          const path = require('path');
+          const YAML = require('yaml');
+
+          const mapping = {
+            "DOMAIN": "domain",
+            "DOMAIN-SUFFIX": "domain_suffix",
+            "DOMAIN-KEYWORD": "domain_keyword",
+            "DOMAIN-REGEX": "domain_regex",
+            "IP-CIDR": "ip_cidr",
+            "IP-CIDR6": "ip_cidr",
+            "IP6-CIDR": "ip_cidr",
+            "SRC-IP-CIDR": "source_ip_cidr",
+            "PROCESS-NAME": "package_name",
+            "PROCESS-PATH": "process_path",
+            "PROCESS-PATH-REGEX": "process_path_regex",
+            "PORT": "port",
+            "PORT-RANGE": "port_range",
+            "SRC-PORT": "source_port",
+            "SRC-PORT-RANGE": "source_port_range"
+          };
+
+          async function processFile(yamlPath, jsonPath) {
+            try {
+              const content = await fs.readFile(yamlPath, 'utf8');
+              const data = YAML.parse(content) || {};
+              const rule = {};
+
+              if (!Array.isArray(data.payload)) {
+                console.log(`Skipping ${yamlPath}, no payload array`);
+                return;
+              }
+
+              for (const item of data.payload) {
+                if (typeof item !== 'string' || !item) continue;
+                const parts = item.split(',', 2);
+                if (parts.length !== 2) continue;
+                const [typeRaw, valueRaw] = parts;
+                const type = typeRaw.trim().toUpperCase();
+                let value = valueRaw.trim();
+
+                if (mapping[type]) {
+                  const key = mapping[type];
+                  if (!rule[key]) rule[key] = [];
+                  rule[key].push(value);
+                }
+              }
+
+              for (const key in rule) {
+                if (!rule[key] || rule[key].length === 0) {
+                  delete rule[key];
+                }
+              }
+
+              if (Object.keys(rule).length === 0) {
+                console.log(`No valid rules in ${yamlPath}, skipping.`);
+                return;
+              }
+
+              const output = {
+                version: 2,
+                rules: [rule]
+              };
+
+              await fs.ensureDir(path.dirname(jsonPath));
+              await fs.writeJson(jsonPath, output, { spaces: 2, encoding: 'utf8' });
+              console.log(`Wrote ${jsonPath}`);
+            } catch (err) {
+              console.error(`Error processing ${yamlPath}:`, err);
+            }
+          }
+
+          async function main() {
+            const rootDir = 'temp_repo/rules/Game';
+            const outDir = 'rules/Game';
+
+            async function walk(dir) {
+              let files = [];
+              for (const f of await fs.readdir(dir)) {
+                const fullPath = path.join(dir, f);
+                const stat = await fs.stat(fullPath);
+                if (stat.isDirectory()) {
+                  files = files.concat(await walk(fullPath));
+                } else if ((f.endsWith('.yaml') || f.endsWith('.yml'))) {
+                  files.push(fullPath);
+                }
+              }
+              return files;
+            }
+
+            const yamlFiles = await walk(rootDir);
+            await fs.ensureDir(outDir);
+
+            for (const yamlFile of yamlFiles) {
+              const baseName = path.basename(yamlFile, path.extname(yamlFile)) + '.json';
+              const jsonPath = path.join(outDir, baseName);
+              await processFile(yamlFile, jsonPath);
+            }
+          }
+
+          main().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          EOF
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rules/Game/*.json
+          git commit -m "Update sing-box Game rules" || echo "No changes to commit"
+          git push
