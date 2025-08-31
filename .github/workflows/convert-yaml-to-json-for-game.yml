@@ -34,6 +34,7 @@ jobs:
           const fs = require('fs-extra');
           const path = require('path');
           const YAML = require('yaml');
+          const net = require('net');
 
           const mapping = {
             "DOMAIN": "domain",
@@ -56,16 +57,18 @@ jobs:
           function isValidIPorCIDR(value) {
             try {
               const [addr, prefix] = value.split('/');
-              const parts = addr.split('.');
-              if (parts.length !== 4) return false;
-              for (const p of parts) {
-                const n = Number(p);
-                if (isNaN(n) || n < 0 || n > 255) return false;
-              }
+              if (!addr) return false;
+
+              const ipType = net.isIP(addr); // 0=非法, 4=IPv4, 6=IPv6
+              if (ipType === 0) return false;
+
               if (prefix !== undefined) {
                 const n = Number(prefix);
-                if (isNaN(n) || n < 0 || n > 32) return false;
+                if (isNaN(n)) return false;
+                if (ipType === 4 && (n < 0 || n > 32)) return false;
+                if (ipType === 6 && (n < 0 || n > 128)) return false;
               }
+
               return true;
             } catch {
               return false;
@@ -91,7 +94,12 @@ jobs:
                     if (mapping[type]) {
                       const key = mapping[type];
                       if (!rule[key]) rule[key] = [];
-                      rule[key].push(value);
+                      if (key === 'ip_cidr') {
+                        if (isValidIPorCIDR(value)) rule[key].push(value);
+                        else console.warn(`Skipping invalid IP/CIDR: ${value}`);
+                      } else {
+                        rule[key].push(value);
+                      }
                     }
                   } else {
                     const value = item.trim();
@@ -109,7 +117,7 @@ jobs:
                       rule.domain_suffix.push(domainSuffix);
                     }
                     // 单纯 IP/CIDR
-                    else if (/^[\d.:/]+$/.test(value)) {
+                    else if (/^[\d.:a-fA-F]+\/\d+$/.test(value) || /^[\d.:a-fA-F]+$/.test(value)) {
                       if (isValidIPorCIDR(value)) {
                         if (!rule.ip_cidr) rule.ip_cidr = [];
                         rule.ip_cidr.push(value);
@@ -149,9 +157,6 @@ jobs:
               return;
             }
 
-            const rootFiles = await fs.readdir(rootDir);
-            console.log('Found files in rootDir:', rootFiles);
-
             async function walk(dir) {
               let files = [];
               for (const f of await fs.readdir(dir)) {
@@ -167,7 +172,6 @@ jobs:
             }
 
             const yamlFiles = await walk(rootDir);
-            console.log('YAML files to process:', yamlFiles);
 
             if (yamlFiles.length === 0) {
               console.log('No YAML files found, exiting.');
