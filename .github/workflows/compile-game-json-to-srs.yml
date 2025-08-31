@@ -1,0 +1,41 @@
+name: Compile Game JSON to SRS using latest sing-box
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install latest sing-box CLI
+        run: |
+          curl -fsSL https://sing-box.app/install.sh | sh
+
+      - name: Compile all Game JSON rules to SRS
+        run: |
+          cd Game
+          for f in *.json; do
+            [ -f "$f" ] || continue
+            echo "Compiling $f ..."
+            sing-box rule-set compile --output "${f%.json}.srs" "$f"
+          done
+
+      - name: Commit and push compiled SRS files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if ls Game/*.srs 1> /dev/null 2>&1; then
+            git add Game/*.srs
+            git diff --cached --quiet || (git commit -m "Update compiled Game sing-box SRS files" && git push)
+          else
+            echo "No SRS files generated, skipping commit."
+          fi
