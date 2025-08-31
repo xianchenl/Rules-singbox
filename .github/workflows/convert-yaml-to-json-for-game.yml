@@ -129,6 +129,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Game/*.json
-          git commit -m "Update sing-box Game rules" || echo "No changes to commit"
-          git push
+
+          if ls Game/*.json 1> /dev/null 2>&1; then
+            git add Game/*.json
+            git commit -m "Update sing-box Game rules" || echo "No changes to commit"
+            git push
+          else
+            echo "No JSON files generated, skipping commit."
+          fi
