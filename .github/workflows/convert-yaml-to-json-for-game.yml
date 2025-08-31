@@ -53,6 +53,25 @@ jobs:
             "SRC-PORT-RANGE": "source_port_range"
           };
 
+          function isValidIPorCIDR(value) {
+            try {
+              const [addr, prefix] = value.split('/');
+              const parts = addr.split('.');
+              if (parts.length !== 4) return false;
+              for (const p of parts) {
+                const n = Number(p);
+                if (isNaN(n) || n < 0 || n > 255) return false;
+              }
+              if (prefix !== undefined) {
+                const n = Number(prefix);
+                if (isNaN(n) || n < 0 || n > 32) return false;
+              }
+              return true;
+            } catch {
+              return false;
+            }
+          }
+
           async function processFile(yamlPath, jsonPath) {
             try {
               const content = await fs.readFile(yamlPath, 'utf8');
@@ -91,8 +110,12 @@ jobs:
                     }
                     // 单纯 IP/CIDR
                     else if (/^[\d.:/]+$/.test(value)) {
-                      if (!rule.ip_cidr) rule.ip_cidr = [];
-                      rule.ip_cidr.push(value);
+                      if (isValidIPorCIDR(value)) {
+                        if (!rule.ip_cidr) rule.ip_cidr = [];
+                        rule.ip_cidr.push(value);
+                      } else {
+                        console.warn(`Skipping invalid IP/CIDR: ${value}`);
+                      }
                     }
                     // 其他默认放 domain_suffix
                     else {
@@ -103,7 +126,7 @@ jobs:
                 }
               }
 
-              // 如果规则为空，仍生成 JSON
+              // 生成 JSON
               const output = {
                 version: 2,
                 rules: [rule]
@@ -121,7 +144,6 @@ jobs:
             const rootDir = 'temp_repo/rules/Game';
             const outDir = 'Game';
 
-            // 打印调试信息
             if (!await fs.pathExists(rootDir)) {
               console.error(`Directory not found: ${rootDir}`);
               return;
