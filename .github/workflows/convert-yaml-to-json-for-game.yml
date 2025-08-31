@@ -63,20 +63,47 @@ jobs:
                 for (const item of data.payload) {
                   if (typeof item !== 'string' || !item) continue;
                   const parts = item.split(',', 2);
-                  if (parts.length !== 2) continue;
-                  const [typeRaw, valueRaw] = parts;
-                  const type = typeRaw.trim().toUpperCase();
-                  const value = valueRaw.trim();
 
-                  if (mapping[type]) {
-                    const key = mapping[type];
-                    if (!rule[key]) rule[key] = [];
-                    rule[key].push(value);
+                  if (parts.length === 2) {
+                    const [typeRaw, valueRaw] = parts;
+                    const type = typeRaw.trim().toUpperCase();
+                    const value = valueRaw.trim();
+
+                    if (mapping[type]) {
+                      const key = mapping[type];
+                      if (!rule[key]) rule[key] = [];
+                      rule[key].push(value);
+                    }
+                  } else {
+                    const value = item.trim();
+
+                    // +. 开头 -> domain
+                    if (value.startsWith('+.')) {
+                      const domain = value.slice(2).trim();
+                      if (!rule.domain) rule.domain = [];
+                      rule.domain.push(domain);
+                    }
+                    // *. 开头 -> domain_suffix
+                    else if (value.startsWith('*.')) {
+                      const domainSuffix = value.slice(2).trim();
+                      if (!rule.domain_suffix) rule.domain_suffix = [];
+                      rule.domain_suffix.push(domainSuffix);
+                    }
+                    // 单纯 IP/CIDR
+                    else if (/^[\d.:/]+$/.test(value)) {
+                      if (!rule.ip_cidr) rule.ip_cidr = [];
+                      rule.ip_cidr.push(value);
+                    }
+                    // 其他默认放 domain_suffix
+                    else {
+                      if (!rule.domain_suffix) rule.domain_suffix = [];
+                      rule.domain_suffix.push(value);
+                    }
                   }
                 }
               }
 
-              // 即使没有 payload 也生成空 rules
+              // 如果规则为空，仍生成 JSON
               const output = {
                 version: 2,
                 rules: [rule]
@@ -95,6 +122,11 @@ jobs:
             const outDir = 'Game';
 
             // 打印调试信息
+            if (!await fs.pathExists(rootDir)) {
+              console.error(`Directory not found: ${rootDir}`);
+              return;
+            }
+
             const rootFiles = await fs.readdir(rootDir);
             console.log('Found files in rootDir:', rootFiles);
 
@@ -114,6 +146,11 @@ jobs:
 
             const yamlFiles = await walk(rootDir);
             console.log('YAML files to process:', yamlFiles);
+
+            if (yamlFiles.length === 0) {
+              console.log('No YAML files found, exiting.');
+              return;
+            }
 
             await fs.ensureDir(outDir);
 
