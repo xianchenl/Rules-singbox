@@ -317,7 +317,7 @@
     },
     {
       "type": "selector",
-      "tag": "💭 X",
+      "tag": "🐦 Twitter",
       "interrupt_exist_connections": true,
       "outbounds": [
         "🚀 节点选择",
@@ -603,7 +603,7 @@
         "🎬 TikTok",
         "📰 Mainland Media",
         "🎙️ Global Media",
-        "💭 X",
+        "🐦 Twitter",
         "♾️ Meta",
         "✈️ Telegram",
         "🕹️ Discord",
@@ -721,9 +721,9 @@
       {
         "action": "route",
         "rule_set": [
-          "X"
+          "Twitter"
         ],
-        "outbound": "💭 X"
+        "outbound": "🐦 Twitter"
       },
       {
         "action": "route",
@@ -1010,9 +1010,9 @@
         "download_detour": "🚀 节点选择"
       },
       {
-        "tag": "X",
+        "tag": "Twitter",
         "type": "remote",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-x.srs",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/refs/heads/rule-set/geosite-twitter.srs",
         "format": "binary",
         "download_detour": "🚀 节点选择"
       },
