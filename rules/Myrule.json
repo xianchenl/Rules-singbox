@@ -3,8 +3,6 @@
   "rules": [
     {
       "domain_keyword": [
-        "ntp",
-        "wx.qlogo",
         "weixin",
         "wechat",
         "wxpay",
@@ -25,3 +23,4 @@
   ]
 
 }
+
