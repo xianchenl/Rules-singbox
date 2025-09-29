@@ -96,6 +96,10 @@
         "outbound": "direct"
       },
       {
+        "rule_set": "AWAvenue-Ads-Rule",
+        "action": "reject"
+      },
+      {
         "rule_set": "bilibili_domain",
         "action": "route",
         "outbound": "bilibili"
@@ -187,13 +191,26 @@
       {
         "rule_set": [
           "cn_ip",
-          "cn_domain"
+          "cn_domain",
+          "Myrule"
         ],
         "action": "route",
         "outbound": "cn"
       }
     ],
     "rule_set": [
+      {
+        "tag": "AWAvenue-Ads-Rule",
+        "type": "remote",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json"
+      },
+      {
+        "tag": "Myrule",
+        "type": "remote",
+        "format": "source",
+        "url": "https://raw.githubusercontent.com/xianchenl/Rules-singbox/refs/heads/main/rules/Myrule.json"
+      },
       {
         "tag": "apple_ip",
         "type": "remote",
