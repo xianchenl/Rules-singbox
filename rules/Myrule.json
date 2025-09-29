@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain_keyword": [
+        "ntp",
+        "wx.qlogo",
+        "weixin",
+        "wechat",
+        "wxpay",
+        "wxmp",
+        "miniprogram",
+        "tencent",
+        "tenpay"
+      ],
+      "package_name": [
+        "com.tencent.mm",
+        "com.alipay.mobile",
+        "com.taobao.taobao",
+        "com.tencent.jkchess",
+        "com.tencent.lolm"        
+      ]
+    }
+  ]
+}
