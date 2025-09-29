@@ -8,7 +8,7 @@ https://raw.githubusercontent.com/xianchenl/Rules-singbox/refs/heads/main/1.12.X
 
 添加脚本选择链接填入
 ```
-https://raw.githubusercontent.com/xianchenl/Rules-singbox/refs/heads/main/1.12.X/sing-box.js#name=singbox&type=1
+https://raw.githubusercontent.com/xianchenl/Rules-singbox/refs/heads/main/sing-box.js#name=singbox&type=1
 ```
 参数编辑
 name:首页订阅管理名称
