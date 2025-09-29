@@ -324,6 +324,10 @@
   "route": {
   "rules": [
     {
+      "action": "sniff",
+      "inbound": "tun-in"
+    },
+    {
       "action": "route",
       "rule_set": ["Youtube"],
       "outbound": "▶️ YouTube"
@@ -382,10 +386,6 @@
       "action": "route",
       "rule_set": ["哔哩哔哩", "哔哩哔哩_IP"],
       "outbound": "🎥 bilibili"
-    },
-    {
-      "action": "sniff",
-      "inbound": "tun-in"
     },
     {
       "action": "hijack-dns",
