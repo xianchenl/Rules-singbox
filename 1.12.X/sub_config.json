@@ -392,6 +392,10 @@
       "protocol": "dns"
     },
     {
+      "action": "reject",
+      "rule_set": ["AWAvenue-Ads-Rule"]
+    },
+    {
       "action": "route",
       "clash_mode": "direct",
       "outbound": "🎯 全球直连"
@@ -535,6 +539,12 @@
       "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/bilibili.srs",
       "format": "binary",
       "download_detour": "🚀 节点选择"
+    },
+    {
+      "tag": "AWAvenue-Ads-Rule",        
+      "type": "remote",
+      "format": "source",
+      "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json"
     },
     {
       "tag": "Private_IP",
