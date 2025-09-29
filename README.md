@@ -3,7 +3,7 @@
 sub-store添加文件
 文件选择远程填入
 ```
-https://raw.githubusercontent.com/xianchenl/Rules-singbox/refs/heads/main/1.12.X/config_sub.json
+https://raw.githubusercontent.com/xianchenl/Rules-singbox/refs/heads/main/1.12.X/sub_config.json
 ```
 
 添加脚本选择链接填入
