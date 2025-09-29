@@ -18,8 +18,10 @@
         "com.alipay.mobile",
         "com.taobao.taobao",
         "com.tencent.jkchess",
+        "com.ss.android.ugc.aweme",
         "com.tencent.lolm"        
       ]
     }
   ]
+
 }
