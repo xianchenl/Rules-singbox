@@ -144,6 +144,13 @@
       },
       {
         "rule_set": [
+          "tiktok_domain"
+        ],
+        "action": "route",
+        "outbound": "tiktok"
+      },
+      {
+        "rule_set": [
           "google_ip",
           "google_domain"
         ],
@@ -219,6 +226,13 @@
         "type": "remote",
         "format": "binary",
         "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/bilibili.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "tiktok_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/tiktok.srs",
         "download_detour": "proxy"
       },
       {
@@ -417,6 +431,21 @@
     },
     {
       "tag": "spotify",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "hk-auto",
+        "tw-auto",
+        "jp-auto",
+        "sg-auto",
+        "us-auto",
+        "all"
+      ],
+      "default": "proxy"
+    },
+    {
+      "tag": "tiktok",
       "type": "selector",
       "outbounds": [
         "proxy",
