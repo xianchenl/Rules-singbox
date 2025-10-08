@@ -1,0 +1,684 @@
+{
+  "dns": {
+    "servers": [
+      {
+        "tag": "google",
+        "type": "https",
+        "server": "8.8.8.8",
+        "detour": "proxy"
+      },
+      {
+        "tag": "ali",
+        "type": "https",
+        "server": "223.5.5.5"
+      },
+      {
+        "tag": "fakeip",
+        "type": "fakeip",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
+      }
+    ],
+    "rules": [
+      {
+        "clash_mode": "Direct",
+        "action": "route",
+        "server": "ali"
+      },
+      {
+        "clash_mode": "Global",
+        "action": "route",
+        "server": "fakeip"
+      },
+      {
+        "query_type": "HTTPS",
+        "action": "reject"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "action": "route",
+        "server": "fakeip",
+        "rewrite_ttl": 1
+      },
+      {
+        "rule_set": "cn_domain",
+        "action": "route",
+        "server": "ali"
+      }
+    ],
+    "final": "google",
+    "independent_cache": true
+  },
+  "route": {
+    "default_domain_resolver": {
+      "server": "ali"
+    },
+    "rules": [
+      {
+        "action": "sniff",
+        "sniffer": [
+          "http",
+          "tls",
+          "quic",
+          "dns"
+        ],
+        "timeout": "500ms"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
+        "action": "hijack-dns"
+      },
+      {
+        "ip_is_private": true,
+        "action": "route",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "action": "route",
+        "outbound": "GLOBAL"
+      },
+      {
+        "clash_mode": "Direct",
+        "action": "route",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "AWAvenue-Ads-Rule",
+        "action": "reject"
+      },
+      {
+        "rule_set": "bilibili_domain",
+        "action": "route",
+        "outbound": "bilibili"
+      },
+      {
+        "rule_set": [
+          "netflix_ip",
+          "netflix_domain"
+        ],
+        "action": "route",
+        "outbound": "netflix"
+      },
+      {
+        "rule_set": [
+          "twitter_ip",
+          "twitter_domain"
+        ],
+        "action": "route",
+        "outbound": "twitter"
+      },
+      {
+        "rule_set": "youtube_domain",
+        "action": "route",
+        "outbound": "youtube"
+      },
+      {
+        "rule_set": "spotify_domain",
+        "action": "route",
+        "outbound": "spotify"
+      },
+      {
+        "rule_set": "ai_domain",
+        "action": "route",
+        "outbound": "ai"
+      },
+      {
+        "rule_set": [
+          "telegram_ip"
+        ],
+        "action": "route",
+        "outbound": "telegram"
+      },
+      {
+        "rule_set": [
+          "tiktok_domain"
+        ],
+        "action": "route",
+        "outbound": "tiktok"
+      },
+      {
+        "rule_set": [
+          "google_ip",
+          "google_domain"
+        ],
+        "action": "route",
+        "outbound": "google"
+      },
+      {
+        "rule_set": [
+          "cn_ip",
+          "cn_domain",
+          "private_ip",
+          "private",
+          "apple_domain",
+          "microsoft_domain",
+          "games_domain",
+          "googlecn_domain"
+        ],
+        "action": "route",
+        "outbound": "cn"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "AWAvenue-Ads-Rule",
+        "type": "remote",
+        "format": "source",
+        "path": "./ruleset/AWAvenue-Ads-Rule-Singbox.json",
+        "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json"
+      },
+      {
+        "tag": "private",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/private.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/private.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "private_ip",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/privateip.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/privateip.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "apple_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/apple-cn.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/apple-cn.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "microsoft_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/microsoft-cn.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/microsoft-cn.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "games_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/games-cn.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games-cn.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "googlecn_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/google-cn.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/google-cn.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "bilibili_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/bilibili.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/bilibili.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "tiktok_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/tiktok.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/tiktok.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "cn_ip",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/cnip.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cnip.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "cn_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/cn.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cn.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "google_ip",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/googleip.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/google.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "google_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/google.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/google.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "netflix_ip",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/netflixip.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/netflixip.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "netflix_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/netflix.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/netflix.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "twitter_ip",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/twitterip.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/twitter.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "twitter_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/twitter.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/twitter.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "ai_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/ai.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/ai.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "telegram_ip",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/telegramip.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/telegramip.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "youtube_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/youtubeip.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/youtube.srs",
+        "download_detour": "proxy"
+      },
+      {
+        "tag": "spotify_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./ruleset/spotify.srs",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/spotify.srs",
+        "download_detour": "proxy"
+      }
+    ],
+    "final": "final",
+    "auto_detect_interface": true
+  },
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "type": "selector",
+      "outbounds": [
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点",
+        "direct"
+      ],
+      "default": "全部节点"
+    },
+    {
+      "tag": "google",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "proxy"
+    },
+    {
+      "tag": "telegram",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "proxy"
+    },
+    {
+      "tag": "bilibili",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "direct"
+    },
+    {
+      "tag": "netflix",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "proxy"
+    },
+    {
+      "tag": "twitter",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "新加坡"
+    },
+    {
+      "tag": "youtube",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "proxy"
+    },
+    {
+      "tag": "spotify",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "香港"
+    },
+    {
+      "tag": "tiktok",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "proxy"
+    },
+    {
+      "tag": "ai",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "proxy"
+    },
+    {
+      "tag": "cn",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "direct"
+    },
+    {
+      "tag": "final",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "proxy"
+    },
+    {
+      "tag": "全部节点",
+      "type": "selector",
+      "outbounds": [],
+      "use_all_providers": true,
+      "exclude": "套餐|重置|剩余|到期|订阅|群|账户|流量|有效期|时间|官网|失联|余额"
+    },
+    {
+      "tag": "香港",
+      "type": "urltest",
+      "outbounds": [],
+      "providers": [
+        "国际",
+        "YKK"
+      ],
+      "include": "港|HK|hk|Hong Kong|HongKong|hongkong",
+      "url": "https://cp.cloudflare.com",
+      "interval": "1m",
+      "tolerance": 50
+    },
+    {
+      "tag": "台湾",
+      "type": "urltest",
+      "outbounds": [],
+      "providers": [
+        "国际",
+        "YKK"
+      ],
+      "include": "台|新北|彰化|TW|Taiwan",
+      "url": "https://cp.cloudflare.com",
+      "interval": "1m",
+      "tolerance": 50
+    },
+    {
+      "tag": "日本",
+      "type": "urltest",
+      "outbounds": [],
+      "providers": [
+        "国际",
+        "YKK"
+      ],
+      "include": "日本|川日|东京|大阪|泉日|埼玉|沪日|深日|[^-]日|JP|Japan",
+      "url": "https://cp.cloudflare.com",
+      "interval": "1m",
+      "tolerance": 50
+    },
+    {
+      "tag": "新加坡",
+      "type": "urltest",
+      "outbounds": [],
+      "providers": [
+        "国际",
+        "YKK"
+      ],
+      "include": "新加坡|坡|狮城|SG|Singapore",
+      "url": "https://cp.cloudflare.com",
+      "interval": "1m",
+      "tolerance": 50
+    },
+    {
+      "tag": "美国",
+      "type": "urltest",
+      "outbounds": [],
+      "providers": [
+        "国际",
+        "YKK"
+      ],
+      "include": "美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States",
+      "url": "https://cp.cloudflare.com",
+      "interval": "1m",
+      "tolerance": 50
+    },
+    {
+      "tag": "GLOBAL",
+      "type": "selector",
+      "outbounds": [
+        "direct",
+        "proxy",
+        "香港",
+        "台湾",
+        "日本",
+        "新加坡",
+        "美国",
+        "全部节点"
+      ],
+      "default": "direct"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    }
+  ],
+  "providers": [
+    {
+      "type": "remote",
+      "tag": "国际",
+      "url": "",
+      "download_detour": "direct",
+      "health_check": {
+        "enabled": true,
+        "url": "https://cp.cloudflare.com"
+      }
+    },
+    {
+      "type": "remote",
+      "tag": "YKK",
+      "url": "",
+      "download_detour": "direct",
+      "health_check": {
+        "enabled": true,
+        "url": "https://cp.cloudflare.com"
+      }
+    }
+  ],
+  "inbounds": [
+    {
+      "type": "tun",
+      "address": [
+        "172.19.0.0/30",
+        "fdfe:dcba:9876::0/126"
+      ],
+      "stack": "mixed",
+      "auto_route": true,
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "127.0.0.1",
+          "server_port": 7890
+        }
+      },
+      "include_uid": [],
+      "exclude_uid": []
+    },
+    {
+      "type": "mixed",
+      "listen": "127.0.0.1",
+      "listen_port": 7890
+    }
+  ],
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "dashboard",
+      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "direct"
+    },
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": true
+    }
+  },
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "timestamp": true,
+    "output": "/data/adb/box/run/sing-box.log"
+  }
+}
