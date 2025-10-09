@@ -572,11 +572,13 @@
   "inbounds": [
     {
       "type": "tun",
+      "interface_name": "sbox",
+      "mtu": 9000,
       "address": [
         "172.19.0.0/30",
         "fdfe:dcba:9876::0/126"
       ],
-      "stack": "mixed",
+      "stack": "gvisor",
       "auto_route": true,
       "platform": {
         "http_proxy": {
@@ -585,11 +587,6 @@
           "server_port": 7890
         }
       }
-    },
-    {
-      "type": "mixed",
-      "listen": "127.0.0.1",
-      "listen_port": 7890
     }
   ],
   "experimental": {
