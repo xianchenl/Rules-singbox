@@ -183,70 +183,70 @@
         "tag": "private",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/private.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/download/sing-box-ruleset/private.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "private_ip",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/privateip.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/download/sing-box-ruleset/privateip.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "apple_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/apple-cn.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/apple-cn.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "microsoft_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/microsoft-cn.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/microsoft-cn.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "games_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games-cn.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/games-cn.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "googlecn_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/google-cn.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/google-cn.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "bilibili_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/bilibili.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/bilibili.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "tiktok_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/tiktok.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/tiktok.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "cn_ip",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cnip.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/cnip.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "cn_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cn.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/cn.srs",
         "download_detour": "proxy"
       },
       {
@@ -267,14 +267,14 @@
         "tag": "netflix_ip",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/netflixip.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/netflixip.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "netflix_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/netflix.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/netflix.srs",
         "download_detour": "proxy"
       },
       {
@@ -295,21 +295,21 @@
         "tag": "ai_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/ai.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/ai.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "telegram_ip",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/telegramip.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/telegramip.srs",
         "download_detour": "proxy"
       },
       {
         "tag": "youtube_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/youtube.srs",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/heads/sing-box-ruleset/youtube.srs",
         "download_detour": "proxy"
       },
       {
@@ -317,7 +317,7 @@
         "type": "remote",
         "format": "binary",
         "url": "remote",
-      "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/spotify.srs",
+      "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/refs/heads/sing-box-ruleset/spotify.srs",
         "download_detour": "proxy"
       }
     ],
