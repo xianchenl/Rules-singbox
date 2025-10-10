@@ -115,6 +115,11 @@
         "outbound": "youtube"
       },
       {
+        "rule_set": "googlefcm_domain",
+        "action": "route",
+        "outbound": "googlefcm"
+      },
+      {
         "rule_set": [
           "twitter_ip",
           "twitter_domain"
@@ -300,6 +305,13 @@
         "type": "remote",
         "format": "binary",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/youtube.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "googlefcm_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/googlefcm.srs",
         "download_detour": "direct"
       },
       {
@@ -543,6 +555,26 @@
     },
     {
       "tag": "cn",
+      "type": "selector",
+      "outbounds": [
+        "proxy",
+        "direct",
+        "hk",
+        "hk-auto",
+        "tw",
+        "tw-auto",
+        "jp",
+        "jp-auto",
+        "sg",
+        "sg-auto",
+        "us",
+        "us-auto",
+        "all"
+      ],
+      "default": "direct"
+    },
+    {
+      "tag": "googlefcm",
       "type": "selector",
       "outbounds": [
         "proxy",
