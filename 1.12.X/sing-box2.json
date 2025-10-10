@@ -1,6 +1,5 @@
 {
   "dns": {
-    "strategy": "prefer_ipv6",
     "servers": [
       {
         "tag": "google",
@@ -327,15 +326,10 @@
       "type": "selector",
       "outbounds": [
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all",
         "direct"
       ],
@@ -348,15 +342,10 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "proxy"
@@ -368,15 +357,10 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "direct"
@@ -388,15 +372,10 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "proxy"
@@ -408,15 +387,10 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "direct"
@@ -428,15 +402,10 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "proxy"
@@ -448,18 +417,13 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
-      "default": "sg-auto"
+      "default": "sg"
     },
     {
       "tag": "spotify",
@@ -468,18 +432,13 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
-      "default": "hk-auto"
+      "default": "hk"
     },
     {
       "tag": "youtube",
@@ -488,18 +447,13 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
-      "default": "us-auto"
+      "default": "us"
     },
     {
       "tag": "tiktok",
@@ -508,15 +462,10 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "proxy"
@@ -528,15 +477,10 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "proxy"
@@ -548,15 +492,10 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "direct"
@@ -568,43 +507,13 @@
         "proxy",
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "proxy"
-    },
-    {
-      "tag": "hk",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
-      "tag": "tw",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
-      "tag": "jp",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
-      "tag": "sg",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
-      "tag": "us",
-      "type": "selector",
-      "outbounds": []
     },
     {
       "tag": "all",
@@ -612,7 +521,7 @@
       "outbounds": []
     },
     {
-      "tag": "hk-auto",
+      "tag": "hk",
       "type": "urltest",
       "outbounds": [],
       "url": "https://www.gstatic.com/generate_204",
@@ -620,7 +529,7 @@
       "tolerance": 50
     },
     {
-      "tag": "tw-auto",
+      "tag": "tw",
       "type": "urltest",
       "outbounds": [],
       "url": "https://www.gstatic.com/generate_204",
@@ -628,7 +537,7 @@
       "tolerance": 50
     },
     {
-      "tag": "jp-auto",
+      "tag": "jp",
       "type": "urltest",
       "outbounds": [],
       "url": "https://www.gstatic.com/generate_204",
@@ -636,7 +545,7 @@
       "tolerance": 50
     },
     {
-      "tag": "sg-auto",
+      "tag": "sg",
       "type": "urltest",
       "outbounds": [],
       "url": "https://www.gstatic.com/generate_204",
@@ -644,7 +553,7 @@
       "tolerance": 50
     },
     {
-      "tag": "us-auto",
+      "tag": "us",
       "type": "urltest",
       "outbounds": [],
       "url": "https://www.gstatic.com/generate_204",
@@ -658,15 +567,10 @@
         "direct",
         "proxy",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
-        "jp-auto",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
         "all"
       ],
       "default": "direct"
