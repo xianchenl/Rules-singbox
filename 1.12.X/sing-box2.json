@@ -43,12 +43,6 @@
         "server": "dns_proxy"
       },
       {
-        "rule_set": [
-           "AWAvenue-Ads-Rule"
-        ],  
-        "action": "reject"
-      },
-      {
         "query_type": "HTTPS",
         "action": "reject"
       },
@@ -118,12 +112,6 @@
         "clash_mode": "Direct",
         "action": "route",
         "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "AWAvenue-Ads-Rule"
-        ],
-        "action": "reject"
       },
       {
         "rule_set": "bilibili_domain",
@@ -206,13 +194,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/apple@cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "AWAvenue-Ads-Rule",
-        "type": "remote",
-        "format": "source",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json",
         "download_detour": "direct"
       },
       {
