@@ -2,33 +2,51 @@
   "dns": {
     "servers": [
       {
-        "tag": "google",
+        "type": "udp",
+        "tag": "dns_resolver",
+        "server": "223.5.5.5",
+        "server_port": 53
+      },
+      {
         "type": "https",
-        "server": "8.8.8.8",
+        "tag": "dns_direct",
+        "domain_resolver": "dns_resolver",
+        "server": "dns.alidns.com",
+        "server_port": 443,
+        "path": "dns-query"
+      },
+      {
+        "type": "https",
+        "tag": "dns_proxy",
+        "domain_resolver": "dns_resolver",
+        "server": "cloudflare-dns.com",
+        "server_port": 443,
+        "path": "dns-query",
         "detour": "proxy"
       },
       {
-        "tag": "ali",
-        "type": "https",
-        "server": "223.5.5.5"
-      },
-      {
-        "tag": "fakeip",
         "type": "fakeip",
+        "tag": "fakeip",
         "inet4_range": "198.18.0.0/15",
-        "inet6_range": "fc00::/18"
+        "inet6_range": "fdec:ba98:7654:3210::/64"
       }
     ],
     "rules": [
       {
         "clash_mode": "Direct",
         "action": "route",
-        "server": "ali"
+        "server": "dns_direct"
       },
       {
         "clash_mode": "Global",
         "action": "route",
-        "server": "fakeip"
+        "server": "dns_proxy"
+      },
+      {
+        "rule_set": [
+           "AWAvenue-Ads-Rule"
+        ],  
+        "action": "reject"
       },
       {
         "query_type": "HTTPS",
@@ -43,18 +61,24 @@
         "server": "fakeip",
         "rewrite_ttl": 1
       },
-      {
-        "rule_set": "cn_domain",
+	  {
+		"domain_keyword": "ntp",
+		"domain_regex": "(^|\\.)(alt[1-8]-mtalk|mtalk|mtalk4)\\.google\\.com$",
+		"rule_set": [
+		  "microsoft@cn_domain",
+		  "cn_domain",
+		  "apple@cn_domain"
+		],
         "action": "route",
-        "server": "ali"
-      }
+		"server": "dns_direct"
+	  }
     ],
-    "final": "google",
+    "final": "dns_proxy",
     "independent_cache": true
   },
   "route": {
     "default_domain_resolver": {
-      "server": "ali"
+      "server": "dns_direct"
     },
     "rules": [
       {
@@ -94,6 +118,12 @@
         "clash_mode": "Direct",
         "action": "route",
         "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "AWAvenue-Ads-Rule"
+        ],
+        "action": "reject"
       },
       {
         "rule_set": "bilibili_domain",
@@ -142,11 +172,6 @@
         "outbound": "steam"
       },
       {
-        "rule_set": "microsoft_domain",
-        "action": "route",
-        "outbound": "microsoft"
-      },
-      {
         "rule_set": [
           "telegram_ip",
           "telegram_domain"
@@ -164,36 +189,30 @@
       },
       {
         "rule_set": [
-          "apple_ip",
-          "apple_domain"
-        ],
-        "action": "route",
-        "outbound": "apple"
-      },
-      {
-        "rule_set": [
           "cn_ip",
           "cn_domain",
           "private_ip",
-          "private_domain"
+          "private_domain",
+          "apple@cn_domain",
+          "microsoft@cn_domain"
         ],
         "action": "route",
-        "outbound": "cn"
+        "outbound": "direct"
       }
     ],
     "rule_set": [
       {
-        "tag": "apple_ip",
+        "tag": "apple@cn_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/apple.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/apple@cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "apple_domain",
+        "tag": "AWAvenue-Ads-Rule",
         "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/apple.srs",
+        "format": "source",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json",
         "download_detour": "direct"
       },
       {
@@ -316,10 +335,10 @@
         "download_detour": "direct"
       },
       {
-        "tag": "microsoft_domain",
+        "tag": "microsoft@cn_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/microsoft.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/microsoft@cn.srs",
         "download_detour": "direct"
       },
       {
@@ -338,7 +357,7 @@
         "download_detour": "direct"
       }
     ],
-    "final": "final",
+    "final": "proxy",
     "auto_detect_interface": true
   },
   "outbounds": [
@@ -503,38 +522,6 @@
       "default": "proxy"
     },
     {
-      "tag": "microsoft",
-      "type": "selector",
-      "outbounds": [
-        "proxy",
-        "direct",
-        "hk",
-        "tw",
-        "jp",
-        "sg",
-        "us",
-        "all",
-        "fast"
-      ],
-      "default": "proxy"
-    },
-    {
-      "tag": "apple",
-      "type": "selector",
-      "outbounds": [
-        "proxy",
-        "direct",
-        "hk",
-        "tw",
-        "jp",
-        "sg",
-        "us",
-        "all",
-        "fast"
-      ],
-      "default": "direct"
-    },
-    {
       "tag": "bilibili",
       "type": "selector",
       "outbounds": [
@@ -564,38 +551,6 @@
         "direct"
       ],
       "default": "all"
-    },
-    {
-      "tag": "cn",
-      "type": "selector",
-      "outbounds": [
-        "proxy",
-        "direct",
-        "hk",
-        "tw",
-        "jp",
-        "sg",
-        "us",
-        "all",
-        "fast"
-      ],
-      "default": "direct"
-    },
-    {
-      "tag": "final",
-      "type": "selector",
-      "outbounds": [
-        "proxy",
-        "direct",
-        "hk",
-        "tw",
-        "jp",
-        "sg",
-        "us",
-        "all",
-        "fast"
-      ],
-      "default": "proxy"
     },
     {
       "tag": "all",
