@@ -2,45 +2,33 @@
   "dns": {
     "servers": [
       {
-        "type": "udp",
-        "tag": "dns_resolver",
-        "server": "223.5.5.5",
-        "server_port": 53
+        "tag": "ali",
+        "type": "https",
+        "server": "223.5.5.5"
       },
       {
+        "tag": "foreign",
         "type": "https",
-        "tag": "dns_direct",
-        "domain_resolver": "dns_resolver",
-        "server": "dns.alidns.com",
-        "server_port": 443,
-        "path": "dns-query"
-      },
-      {
-        "type": "https",
-        "tag": "dns_proxy",
-        "domain_resolver": "dns_resolver",
-        "server": "cloudflare-dns.com",
-        "server_port": 443,
-        "path": "dns-query",
+        "server": "8.8.8.8",
         "detour": "proxy"
       },
       {
         "type": "fakeip",
         "tag": "fakeip",
         "inet4_range": "198.18.0.0/15",
-        "inet6_range": "fdec:ba98:7654:3210::/64"
+        "inet6_range": "fc00::/18"
       }
     ],
     "rules": [
       {
         "clash_mode": "Direct",
         "action": "route",
-        "server": "dns_direct"
+        "server": "ali"
       },
       {
         "clash_mode": "Global",
         "action": "route",
-        "server": "dns_proxy"
+        "server": "fakeip"
       },
       {
         "query_type": "HTTPS",
@@ -64,15 +52,15 @@
 		  "apple@cn_domain"
 		],
         "action": "route",
-		"server": "dns_direct"
+		"server": "ali"
 	  }
     ],
-    "final": "dns_proxy",
+    "final": "foreign",
     "independent_cache": true
   },
   "route": {
     "default_domain_resolver": {
-      "server": "dns_direct"
+      "server": "ali"
     },
     "rules": [
       {
