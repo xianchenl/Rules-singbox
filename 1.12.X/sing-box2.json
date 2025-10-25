@@ -2,14 +2,14 @@
   "dns": {
     "servers": [
       {
-        "tag": "ali",
+        "tag": "domestic",
         "type": "https",
         "server": "223.5.5.5"
       },
       {
         "tag": "foreign",
         "type": "https",
-        "server": "8.8.8.8",
+        "server": "1.1.1.1",
         "detour": "proxy"
       },
       {
@@ -23,7 +23,7 @@
       {
         "clash_mode": "Direct",
         "action": "route",
-        "server": "ali"
+        "server": "domestic"
       },
       {
         "clash_mode": "Global",
@@ -52,7 +52,7 @@
 		  "apple@cn_domain"
 		],
         "action": "route",
-		"server": "ali"
+		"server": "domestic"
 	  }
     ],
     "final": "foreign",
@@ -60,7 +60,7 @@
   },
   "route": {
     "default_domain_resolver": {
-      "server": "ali"
+      "server": "domestic"
     },
     "rules": [
       {
