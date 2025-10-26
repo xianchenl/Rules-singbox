@@ -121,6 +121,11 @@
         "outbound": "youtube"
       },
       {
+        "rule_set": "spotify_domain",
+        "action": "route",
+        "outbound": "spotify"
+      },
+      {
         "rule_set": [
           "twitter_ip",
           "twitter_domain"
