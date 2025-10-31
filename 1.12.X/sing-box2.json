@@ -2,14 +2,14 @@
   "dns": {
     "servers": [
       {
-        "tag": "domestic",
+        "tag": "ali_dns",
         "type": "https",
         "server": "223.5.5.5"
       },
       {
-        "tag": "foreign",
+        "tag": "google_dns",
         "type": "https",
-        "server": "1.1.1.1",
+        "server": "8.8.8.8",
         "detour": "proxy"
       },
       {
@@ -23,7 +23,7 @@
       {
         "clash_mode": "Direct",
         "action": "route",
-        "server": "domestic"
+        "server": "ali_dns"
       },
       {
         "clash_mode": "Global",
@@ -43,6 +43,10 @@
         "server": "fakeip",
         "rewrite_ttl": 1
       },
+      {
+        "rule_set": "awavenue",
+        "action": "reject"
+      },
 	  {
 		"domain_keyword": "ntp",
 		"domain_regex": "(^|\\.)(alt[1-8]-mtalk|mtalk|mtalk4)\\.google\\.com$",
@@ -53,15 +57,15 @@
 		  "fakeip-filter"
 		],
         "action": "route",
-		"server": "domestic"
+		"server": "ali_dns"
 	  }
     ],
-    "final": "foreign",
+    "final": "google_dns",
     "independent_cache": true
   },
   "route": {
     "default_domain_resolver": {
-      "server": "domestic"
+      "server": "ali_dns"
     },
     "rules": [
       {
@@ -103,15 +107,7 @@
         "outbound": "direct"
       },
       {
-        "rule_set": "bilibili_domain",
-        "action": "route",
-        "outbound": "bilibili"
-      },
-      {
-        "rule_set": [
-          "netflix_ip",
-          "netflix_domain"
-        ],
+        "rule_set": "netflix_domain",
         "action": "route",
         "outbound": "netflix"
       },
@@ -126,10 +122,7 @@
         "outbound": "spotify"
       },
       {
-        "rule_set": [
-          "twitter_ip",
-          "twitter_domain"
-        ],
+        "rule_set": "twitter_domain",
         "action": "route",
         "outbound": "twitter"
       },
@@ -154,28 +147,46 @@
         "outbound": "steam"
       },
       {
-        "rule_set": [
-          "telegram_ip",
-          "telegram_domain"
-        ],
-        "action": "route",
-        "outbound": "telegram"
-      },
-      {
-        "rule_set": [
-          "google_ip",
-          "google_domain"
-        ],
+        "rule_set": "google_domain",
         "action": "route",
         "outbound": "google"
       },
       {
-        "rule_set": [
-          "cn_ip",
-          "cn_domain",
-          "apple@cn_domain",
-          "microsoft@cn_domain"
-        ],
+        "rule_set": "telegram_domain",
+        "action": "route",
+        "outbound": "telegram"
+      },
+      {
+        "rule_set": "awavenue",
+        "action": "reject"
+      },
+      {
+        "rule_set": ["cn_domain","apple@cn_domain","microsoft@cn_domain","private_domain"],
+        "action": "route",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "netflix_ip",
+        "action": "route",
+        "outbound": "netflix"
+      },
+      {
+        "rule_set": "twitter_ip",
+        "action": "route",
+        "outbound": "twitter"
+      },
+      {
+        "rule_set": "telegram_ip",
+        "action": "route",
+        "outbound": "telegram"
+      },
+      {
+        "rule_set": "google_ip",
+        "action": "route",
+        "outbound": "google"
+      },
+      {
+        "rule_set": ["cn_ip","private_ip"],
         "action": "route",
         "outbound": "direct"
       }
@@ -186,13 +197,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/apple@cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "bilibili_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/bilibili.srs",
         "download_detour": "direct"
       },
       {
@@ -214,6 +218,20 @@
         "type": "remote",
         "format": "binary",
         "url": "https://ghfast.top/raw.githubusercontent.com/DustinWin/ruleset_geodata/refs/heads/sing-box-ruleset/fakeip-filter.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "private_ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/private.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "private_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/private.srs",
         "download_detour": "direct"
       },
       {
@@ -321,6 +339,13 @@
         "url": "remote",
       "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/spotify.srs",
         "download_detour": "direct"
+      },
+      {
+        "tag": "awavenue",
+        "type": "remote",
+        "format": "source",
+        "url": "https://ghfast.top/raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json",
+        "download_detour": "direct"
       }
     ],
     "final": "proxy",
@@ -338,8 +363,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "proxy"
     },
@@ -354,10 +378,9 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
-      "default": "fast"
+      "default": "jp"
     },
     {
       "tag": "netflix",
@@ -370,8 +393,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "proxy"
     },
@@ -386,8 +408,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "sg"
     },
@@ -402,8 +423,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "hk"
     },
@@ -418,8 +438,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "us"
     },
@@ -434,8 +453,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "proxy"
     },
@@ -450,8 +468,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "proxy"
     },
@@ -466,8 +483,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "proxy"
     },
@@ -482,26 +498,9 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "proxy"
-    },
-    {
-      "tag": "bilibili",
-      "type": "selector",
-      "outbounds": [
-        "proxy",
-        "direct",
-        "hk",
-        "tw",
-        "jp",
-        "sg",
-        "us",
-        "all",
-        "fast"
-      ],
-      "default": "direct"
     },
     {
       "tag": "proxy",
@@ -513,7 +512,6 @@
         "sg",
         "us",
         "all",
-        "fast",
         "direct"
       ],
       "default": "all"
@@ -522,14 +520,6 @@
       "tag": "all",
       "type": "selector",
       "outbounds": []
-    },
-    {
-      "tag": "fast",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "tolerance": 50
     },
     {
       "tag": "hk",
@@ -582,8 +572,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "fast"
+        "all"
       ],
       "default": "direct"
     },
