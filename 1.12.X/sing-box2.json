@@ -4,13 +4,23 @@
       {
         "tag": "ali_dns",
         "type": "https",
-        "server": "223.5.5.5"
+        "server": "dns.alidns.com",
+        "domain_resolver": "hosts"
       },
       {
         "tag": "google_dns",
         "type": "https",
-        "server": "8.8.8.8",
+        "server": "dns.google",
+        "domain_resolver": "hosts",
         "detour": "proxy"
+      },
+      {
+        "tag": "hosts",
+        "type": "hosts",
+        "predefined": {
+          "dns.alidns.com": ["223.5.5.5","223.6.6.6"],
+          "dns.google": ["8.8.8.8","8.8.4.4"]
+        }
       },
       {
         "type": "fakeip",
