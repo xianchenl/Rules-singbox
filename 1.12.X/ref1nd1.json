@@ -45,9 +45,9 @@
         "rewrite_ttl": 1
       },
       {
+        "domain_regex": "(^|\\.)(alt[1-8]-mtalk|mtalk|mtalk4)\\.google\\.com$",
         "rule_set": [
-          "cn_domain",
-          "fakeip-filter"
+          "cn_domain"
         ],
         "server": "ali"
       }
@@ -62,13 +62,7 @@
     "rules": [
       {
         "action": "sniff",
-        "sniffer": [
-          "http",
-          "tls",
-          "quic",
-          "dns"
-        ],
-        "timeout": "500ms"
+        "timeout": "300ms"
       },
       {
         "type": "logical",
@@ -153,14 +147,13 @@
         "action": "reject"
       },
       {
-        "rule_set": "private_domain",
+        "rule_set": "cn_domain",
         "action": "route",
         "outbound": "direct"
       },
       {
-        "rule_set": "cn_domain",
-        "action": "route",
-        "outbound": "direct"
+        "action": "resolve",
+        "match_only": true
       },
       {
         "rule_set": "netflix_ip",
@@ -218,27 +211,11 @@
         "download_detour": "direct"
       },
       {
-        "tag": "fakeip-filter",
-        "type": "remote",
-        "format": "binary",
-        "path": "./rule_provider/fakeip-filter.srs",
-        "url": "https://ghfast.top/raw.githubusercontent.com/DustinWin/ruleset_geodata/refs/heads/sing-box-ruleset/fakeip-filter.srs",
-        "download_detour": "direct"
-      },
-      {
         "tag": "private_ip",
         "type": "remote",
         "format": "binary",
         "path": "./rule_provider/private_ip.srs",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/private.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "private_domain",
-        "type": "remote",
-        "format": "binary",
-        "path": "./rule_provider/private_domain.srs",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/private.srs",
         "download_detour": "direct"
       },
       {
@@ -378,10 +355,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "proxy"
     },
@@ -396,10 +370,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "sg"
     },
@@ -414,10 +385,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "proxy"
     },
@@ -432,10 +400,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "sg"
     },
@@ -450,10 +415,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "hk"
     },
@@ -468,10 +430,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "us"
     },
@@ -486,10 +445,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "proxy"
     },
@@ -504,10 +460,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "proxy"
     },
@@ -522,10 +475,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "proxy"
     },
@@ -540,10 +490,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "proxy"
     },
@@ -557,9 +504,6 @@
         "sg",
         "us",
         "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback",
         "direct"
       ],
       "default": "all"
@@ -570,58 +514,10 @@
       "use_all_providers": true
     },
     {
-      "tag": "sg-fallback",
-      "type": "urltest",
-      "providers": [
-        "快跑",
-        "Mitce"
-      ],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "include": "(?i)(🇸🇬|新|\\bsg\\b|\\bSG\\b|singapore|Singapore)",
-      "tolerance": 50,
-      "fallback": {
-        "enabled": true,
-        "max_delay": "300ms"
-      }
-    },
-    {
-      "tag": "jp-fallback",
-      "type": "urltest",
-      "providers": [
-        "快跑",
-        "Mitce"
-      ],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "include": "(?i)(🇯🇵|日|\\bjp\\b|\\bJP\\b|japan|Japan|东京)",
-      "tolerance": 50,
-      "fallback": {
-        "enabled": true,
-        "max_delay": "300ms"
-      }
-    },
-    {
-      "tag": "hk-fallback",
-      "type": "urltest",
-      "providers": [
-        "快跑",
-        "Mitce"
-      ],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "include": "(?i)(🇭🇰|港|\\bhk\\b|\\bHK\\b|hongkong|hong kong|Hong Kong)",
-      "tolerance": 50,
-      "fallback": {
-        "enabled": true,
-        "max_delay": "300ms"
-      }
-    },
-    {
       "tag": "hk",
       "type": "urltest",
       "providers": [
-        "快跑",
+        "Ykk",
         "Mitce"
       ],
       "url": "https://www.gstatic.com/generate_204",
@@ -633,7 +529,7 @@
       "tag": "tw",
       "type": "urltest",
       "providers": [
-        "快跑",
+        "Ykk",
         "Mitce"
       ],
       "url": "https://www.gstatic.com/generate_204",
@@ -645,7 +541,7 @@
       "tag": "jp",
       "type": "urltest",
       "providers": [
-        "快跑",
+        "Ykk",
         "Mitce"
       ],
       "url": "https://www.gstatic.com/generate_204",
@@ -657,7 +553,7 @@
       "tag": "sg",
       "type": "urltest",
       "providers": [
-        "快跑",
+        "Ykk",
         "Mitce"
       ],
       "url": "https://www.gstatic.com/generate_204",
@@ -669,7 +565,7 @@
       "tag": "us",
       "type": "urltest",
       "providers": [
-        "快跑",
+        "Ykk",
         "Mitce"
       ],
       "url": "https://www.gstatic.com/generate_204",
@@ -688,10 +584,7 @@
         "jp",
         "sg",
         "us",
-        "all",
-        "sg-fallback",
-        "jp-fallback",
-        "hk-fallback"
+        "all"
       ],
       "default": "direct"
     },
@@ -703,13 +596,13 @@
   "inbounds": [
     {
       "type": "tun",
-      "interface_name": "sbtun",
+      "interface_name": "singbox",
       "address": [
         "172.19.0.0/30",
         "fdfe:dcba:9876::0/126"
       ],
       "mtu": 9000,
-      "stack": "gvisor",
+      "stack": "mixed",
       "auto_route": true,
       "platform": {
         "http_proxy": {
@@ -740,12 +633,12 @@
         "timeout": "30s"
       },
       "download_detour": "direct",
-      "update_interval": "5m"
+      "update_interval": "5h"
     },
     {
       "type": "remote",
-      "tag": "快跑",
-      "url": "http://127.0.0.1:3000/download/%E5%BF%AB%E8%B7%91",
+      "tag": "Ykk",
+      "url": "http://127.0.0.1:3000/download/Ykk",
       "path": "./providers/kp.json",
       "health_check": {
         "enabled": true,
@@ -754,7 +647,7 @@
         "timeout": "30s"
       },
       "download_detour": "direct",
-      "update_interval": "5m"
+      "update_interval": "5h"
     }
   ],
   "experimental": {
@@ -767,6 +660,7 @@
     },
     "cache_file": {
       "enabled": true,
+      "path": "./cache.db",
       "store_fakeip": true
     }
   },
