@@ -31,6 +31,10 @@
         "server": "fakeip"
       },
       {
+        "rule_set": "fakeip-filter",
+        "server": "DIRECT"
+      },
+      {
         "query_type": [
           "HTTPS",
           "SVCB"
@@ -92,6 +96,11 @@
         "outbound": "DIRECT"
       },
       {
+        "domain_regex": "(^|\\.)(alt[1-8]-mtalk|mtalk|mtalk4)\\.google\\.com$",
+        "action": "route",
+        "outbound": "DIRECT"
+      },
+      {
         "rule_set": "netflix_domain",
         "action": "route",
         "outbound": "Netflix"
@@ -142,6 +151,11 @@
         "outbound": "Telegram"
       },
       {
+        "rule_set": "emby_domain",
+        "action": "route",
+        "outbound": "emby"
+      },
+      {
         "rule_set": "awavenue",
         "action": "reject"
       },
@@ -186,6 +200,14 @@
       }
     ],
     "rule_set": [
+      {
+        "tag": "fakeip-filter",
+        "type": "remote",
+        "format": "binary",
+        "path": "./rule_provider/fakeip-filter.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/DustinWin/ruleset_geodata/refs/heads/sing-box-ruleset/fakeip-filter.srs",
+        "download_detour": "DIRECT"
+      },
       {
         "tag": "cn_ip",
         "type": "remote",
@@ -320,6 +342,14 @@
         "format": "binary",
         "path": "./rule_provider/spotify.srs",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/spotify.srs",
+        "download_detour": "DIRECT"
+      },
+      {
+        "tag": "emby_domain",
+        "type": "remote",
+        "format": "binary",
+        "path": "./rule_provider/emby.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/category-emby.srs",
         "download_detour": "DIRECT"
       },
       {
@@ -494,7 +524,7 @@
         "US-Auto",
         "ALL"
       ],
-      "default": "US-Auto"
+      "default": "TW-Auto"
     },
     {
       "tag": "Github",
@@ -515,6 +545,26 @@
         "ALL"
       ],
       "default": "PROXY"
+    },
+    {
+      "tag": "emby",
+      "type": "selector",
+      "outbounds": [
+        "PROXY",
+        "DIRECT",
+        "HK",
+        "TW",
+        "JP",
+        "SG",
+        "US",
+        "HK-Auto",
+        "TW-Auto",
+        "JP-Auto",
+        "SG-Auto",
+        "US-Auto",
+        "ALL"
+      ],
+      "default": "DIRECT"
     },
     {
       "tag": "Steam",
@@ -613,11 +663,9 @@
     {
       "tag": "HK-Auto",
       "type": "urltest",
-      "providers": [
-        "Ykk",
-        "快跑",
-        "Mitce"
-      ],
+      "use_all_providers": true,
+//      "providers": [
+//      ],
       "url": "https://www.gstatic.com/generate_204",
       "interval": "150s",
       "include": "(?i)(🇭🇰|港|\\bhk\\b|\\bHK\\b|hongkong|hong kong|Hong Kong)",
@@ -626,11 +674,7 @@
     {
       "tag": "TW-Auto",
       "type": "urltest",
-      "providers": [
-        "Ykk",
-        "快跑",
-        "Mitce"
-      ],
+      "use_all_providers": true,
       "url": "https://www.gstatic.com/generate_204",
       "interval": "150s",
       "include": "(?i)(🇹🇼|台|\\btw\\b|\\bTW\\b|taiwan|Taiwan|taipei|台北)",
@@ -639,11 +683,7 @@
     {
       "tag": "JP-Auto",
       "type": "urltest",
-      "providers": [
-        "Ykk",
-        "快跑",
-        "Mitce"
-      ],
+      "use_all_providers": true,
       "url": "https://www.gstatic.com/generate_204",
       "interval": "150s",
       "include": "(?i)(🇯🇵|日|\\bjp\\b|\\bJP\\b|japan|Japan|东京)",
@@ -652,11 +692,7 @@
     {
       "tag": "SG-Auto",
       "type": "urltest",
-      "providers": [
-        "Ykk",
-        "快跑",
-        "Mitce"
-      ],
+      "use_all_providers": true,
       "url": "https://www.gstatic.com/generate_204",
       "interval": "150s",
       "include": "(?i)(🇸🇬|新|\\bsg\\b|\\bSG\\b|singapore|Singapore)",
@@ -665,11 +701,7 @@
     {
       "tag": "US-Auto",
       "type": "urltest",
-      "providers": [
-        "Ykk",
-        "快跑",
-        "Mitce"
-      ],
+      "use_all_providers": true,
       "url": "https://www.gstatic.com/generate_204",
       "interval": "150s",
       "include": "(?i)(🇺🇸|美|\\bUS\\b|\\bus\\b|unitedstates|united states|United States)",
@@ -724,9 +756,9 @@
   "providers": [
     {
       "type": "remote",
-      "tag": "Mitce",
+      "tag": "订阅一",
       "url": "",
-      "path": "./providers/Mitce.json",
+      "path": "./providers/订阅一.json",
       "health_check": {
         "enabled": true,
         "url": "https://www.gstatic.com/generate_204",
@@ -738,23 +770,9 @@
     },
     {
       "type": "remote",
-      "tag": "快跑",
+      "tag": "订阅二",
       "url": "",
-      "path": "./providers/快跑.json",
-      "health_check": {
-        "enabled": true,
-        "url": "https://www.gstatic.com/generate_204",
-        "interval": "10m",
-        "timeout": "30s"
-      },
-      "download_detour": "DIRECT",
-      "update_interval": "5h"
-    },
-    {
-      "type": "remote",
-      "tag": "Ykk",
-      "url": "",
-      "path": "./providers/Ykk.json",
+      "path": "./providers/订阅二.json",
       "health_check": {
         "enabled": true,
         "url": "https://www.gstatic.com/generate_204",
@@ -775,14 +793,14 @@
     },
     "cache_file": {
       "enabled": true,
-      "path": "./cache.db",
+      "path": "cache.db",
       "store_fakeip": true
     }
   },
   "log": {
-    "disabled": false,
+    "disabled": true,
     "level": "info",
     "timestamp": true,
-    "output": "./sing-box.log"
+    "output": "sing-box.log"
   }
 }
