@@ -111,11 +111,6 @@
         "outbound": "Youtube"
       },
       {
-        "rule_set": "spotify_domain",
-        "action": "route",
-        "outbound": "Spotify"
-      },
-      {
         "rule_set": "twitter_domain",
         "action": "route",
         "outbound": "Twitter"
@@ -124,11 +119,6 @@
         "rule_set": "ai_domain",
         "action": "route",
         "outbound": "Openai"
-      },
-      {
-        "rule_set": "tiktok_domain",
-        "action": "route",
-        "outbound": "Tiktok"
       },
       {
         "rule_set": "github_domain",
@@ -149,11 +139,6 @@
         "rule_set": "telegram_domain",
         "action": "route",
         "outbound": "Telegram"
-      },
-      {
-        "rule_set": "emby_domain",
-        "action": "route",
-        "outbound": "emby"
       },
       {
         "rule_set": "awavenue",
@@ -329,30 +314,6 @@
         "download_detour": "DIRECT"
       },
       {
-        "tag": "tiktok_domain",
-        "type": "remote",
-        "format": "binary",
-        "path": "./rule_provider/tiktok.srs",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/tiktok.srs",
-        "download_detour": "DIRECT"
-      },
-      {
-        "tag": "spotify_domain",
-        "type": "remote",
-        "format": "binary",
-        "path": "./rule_provider/spotify.srs",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/spotify.srs",
-        "download_detour": "DIRECT"
-      },
-      {
-        "tag": "emby_domain",
-        "type": "remote",
-        "format": "binary",
-        "path": "./rule_provider/emby.srs",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/category-emby.srs",
-        "download_detour": "DIRECT"
-      },
-      {
         "tag": "awavenue",
         "type": "remote",
         "format": "source",
@@ -447,26 +408,6 @@
       "default": "SG-Auto"
     },
     {
-      "tag": "Spotify",
-      "type": "selector",
-      "outbounds": [
-        "PROXY",
-        "DIRECT",
-        "HK",
-        "TW",
-        "JP",
-        "SG",
-        "US",
-        "HK-Auto",
-        "TW-Auto",
-        "JP-Auto",
-        "SG-Auto",
-        "US-Auto",
-        "ALL"
-      ],
-      "default": "HK-Auto"
-    },
-    {
       "tag": "Youtube",
       "type": "selector",
       "outbounds": [
@@ -485,26 +426,6 @@
         "ALL"
       ],
       "default": "US-Auto"
-    },
-    {
-      "tag": "Tiktok",
-      "type": "selector",
-      "outbounds": [
-        "PROXY",
-        "DIRECT",
-        "HK",
-        "TW",
-        "JP",
-        "SG",
-        "US",
-        "HK-Auto",
-        "TW-Auto",
-        "JP-Auto",
-        "SG-Auto",
-        "US-Auto",
-        "ALL"
-      ],
-      "default": "PROXY"
     },
     {
       "tag": "Openai",
@@ -545,26 +466,6 @@
         "ALL"
       ],
       "default": "PROXY"
-    },
-    {
-      "tag": "emby",
-      "type": "selector",
-      "outbounds": [
-        "PROXY",
-        "DIRECT",
-        "HK",
-        "TW",
-        "JP",
-        "SG",
-        "US",
-        "HK-Auto",
-        "TW-Auto",
-        "JP-Auto",
-        "SG-Auto",
-        "US-Auto",
-        "ALL"
-      ],
-      "default": "DIRECT"
     },
     {
       "tag": "Steam",
@@ -756,9 +657,9 @@
   "providers": [
     {
       "type": "remote",
-      "tag": "订阅一",
+      "tag": "快跑",
       "url": "",
-      "path": "./providers/订阅一.json",
+      "path": "./providers/快跑.json",
       "health_check": {
         "enabled": true,
         "url": "https://www.gstatic.com/generate_204",
@@ -770,9 +671,9 @@
     },
     {
       "type": "remote",
-      "tag": "订阅二",
+      "tag": "Ykk",
       "url": "",
-      "path": "./providers/订阅二.json",
+      "path": "./providers/Ykk.json",
       "health_check": {
         "enabled": true,
         "url": "https://www.gstatic.com/generate_204",
