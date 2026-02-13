@@ -42,7 +42,7 @@
         "action": "reject"
       },
       {
-        "rule_set": "awavenue",
+        "rule_set": "no-ads",
         "action": "reject"
       },
       {
@@ -141,7 +141,7 @@
         "outbound": "Telegram"
       },
       {
-        "rule_set": "awavenue",
+        "rule_set": "no-ads",
         "action": "reject"
       },
       {
@@ -314,11 +314,11 @@
         "download_detour": "DIRECT"
       },
       {
-        "tag": "awavenue",
+        "tag": "no-ads",
         "type": "remote",
-        "format": "source",
-        "path": "./rule_provider/awavenue.json",
-        "url": "https://ghfast.top/raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json",
+        "format": "binary",
+        "path": "./rule_provider/no-ads.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/anti-ad-sing-box.srs",
         "download_detour": "DIRECT"
       }
     ],
